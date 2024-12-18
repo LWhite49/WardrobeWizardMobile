@@ -1,3 +1,5 @@
+import "react-native-reanimated";
+import "react-native-gesture-handler";
 import { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { ClerkProvider, ClerkLoaded } from "@clerk/clerk-expo";

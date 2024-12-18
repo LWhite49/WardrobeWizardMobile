@@ -1,30 +1,30 @@
-import { createStackNavigator } from "@react-navigation/stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Feed } from "../Feed/Feed";
 import { Settings } from "../Settings/Settings";
 import { Wardrobe } from "../Wardrobe/Wardrobe";
 
 export const HomeDisplay = () => {
 	// Create Stack Navigator
-	const Stack = createStackNavigator();
+	const Tab = createBottomTabNavigator();
 
-	// Return Stack Navigator with Feed, Settings, and Wardrobe screens, initialized to Feed
+	// Return Tab Navigator with Feed, Settings, and Wardrobe screens, initialized to Feed
 	return (
-		<Stack.Navigator initialRouteName="Feed">
-			<Stack.Screen
+		<Tab.Navigator initialRouteName="Feed">
+			<Tab.Screen
 				name="Feed"
 				component={Feed}
 				options={{ headerShown: false }}
 			/>
-			<Stack.Screen
+			<Tab.Screen
 				name="Settings"
 				component={Settings}
 				options={{ headerShown: false }}
 			/>
-			<Stack.Screen
+			<Tab.Screen
 				name="Wardrobe"
 				component={Wardrobe}
 				options={{ headerShown: false }}
 			/>
-		</Stack.Navigator>
+		</Tab.Navigator>
 	);
 };
