@@ -12,6 +12,16 @@ export const ClerkSignIn = (prop) => {
 	const [emailAddress, setEmailAddress] = useState("");
 	const [password, setPassword] = useState("");
 
+	const [errorMsg, setErrorMsg] = useState("");
+
+	// Define dictionary mapping error codes to error messages
+	const errorMessages = {
+		"Identifier is invalid.": "Invalid email address",
+		"Couldn't find your account.":
+			"No account found with that email address",
+		"Password is incorrect. Try again, or use another method.":
+			"Incorrect password",
+	};
 	// Handle the submission of the sign-in form
 	const onSignInPress = useCallback(async () => {
 		if (!isLoaded) return;
@@ -36,7 +46,7 @@ export const ClerkSignIn = (prop) => {
 		} catch (err) {
 			// See https://clerk.com/docs/custom-flows/error-handling
 			// for more info on error handling
-			console.error(JSON.stringify(err, null, 2));
+			setErrorMsg(errorMessages[err.message] || err.message);
 		}
 	}, [isLoaded, emailAddress, password]);
 
@@ -60,6 +70,7 @@ export const ClerkSignIn = (prop) => {
 				secureTextEntry={true}
 				onChangeText={(password) => setPassword(password)}
 			/>
+			<Text>{errorMsg}</Text>
 			<Button title="Sign in" onPress={onSignInPress} />
 			<View>
 				<Text>Don't have an account?</Text>

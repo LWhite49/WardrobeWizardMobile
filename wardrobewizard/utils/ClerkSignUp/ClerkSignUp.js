@@ -13,7 +13,19 @@ export const ClerkSignUp = (prop) => {
 	const [password, setPassword] = useState("");
 	const [pendingVerification, setPendingVerification] = useState(false);
 	const [code, setCode] = useState("");
+	const [errorMsg, setErrorMsg] = useState("");
 
+	// Define dictionary mapping error codes to error messages
+	const errorMessages = {
+		"email_address must be a valid email address.": "Invalid email address",
+		"Passwords must be 8 characters or more.":
+			"Password must be at least 8 characters",
+		"Password has been found in an online data breach. For account safety, please use a different password.":
+			"Insecure password, please try another",
+		"That email address is taken. Please try another.":
+			"Email address is already in use",
+		"Incorrect code": "Incorrect verification code",
+	};
 	// Handle submission of sign-up form
 	const onSignUpPress = async () => {
 		if (!isLoaded) return;
@@ -33,10 +45,11 @@ export const ClerkSignUp = (prop) => {
 			// Set 'pendingVerification' to true to display second form
 			// and capture OTP code
 			setPendingVerification(true);
+			setErrorMsg("");
 		} catch (err) {
 			// See https://clerk.com/docs/custom-flows/error-handling
 			// for more info on error handling
-			console.error(JSON.stringify(err, null, 2));
+			setErrorMsg(errorMessages[err.message] || err.message);
 		}
 	};
 
@@ -63,7 +76,14 @@ export const ClerkSignUp = (prop) => {
 		} catch (err) {
 			// See https://clerk.com/docs/custom-flows/error-handling
 			// for more info on error handling
-			console.error(JSON.stringify(err, null, 2));
+			setErrorMsg(errorMessages[err.message] || err.message);
+		}
+	};
+
+	// Handler to update verification code state
+	const onCodeChange = (text) => {
+		if (!isNaN(text) && text.length <= 6) {
+			setCode(text);
 		}
 	};
 
@@ -71,11 +91,13 @@ export const ClerkSignUp = (prop) => {
 		return (
 			<>
 				<Text>Verify your email</Text>
+				<Text>Code sent to {emailAddress}</Text>
 				<TextInput
 					value={code}
 					placeholder="Enter your verification code"
-					onChangeText={(code) => setCode(code)}
+					onChangeText={onCodeChange}
 				/>
+				<Text>{errorMsg}</Text>
 				<Button title="Verify" onPress={onVerifyPress} />
 			</>
 		);
@@ -103,6 +125,7 @@ export const ClerkSignUp = (prop) => {
 					secureTextEntry={true}
 					onChangeText={(password) => setPassword(password)}
 				/>
+				<Text>{errorMsg}</Text>
 				<Button title="Continue" onPress={onSignUpPress} />
 			</>
 		</View>
