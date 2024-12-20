@@ -16,11 +16,11 @@ export const ClerkSignIn = (prop) => {
 
 	// Define dictionary mapping error codes to error messages
 	const errorMessages = {
-		"Identifier is invalid.": "Invalid email address",
+		"Identifier is invalid.": "Invalid email address.",
 		"Couldn't find your account.":
-			"No account found with that email address",
+			"No account found with that email address.",
 		"Password is incorrect. Try again, or use another method.":
-			"Incorrect password",
+			"Incorrect password.",
 	};
 	// Handle the submission of the sign-in form
 	const onSignInPress = useCallback(async () => {

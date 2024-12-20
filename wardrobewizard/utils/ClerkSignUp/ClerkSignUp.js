@@ -17,14 +17,15 @@ export const ClerkSignUp = (prop) => {
 
 	// Define dictionary mapping error codes to error messages
 	const errorMessages = {
-		"email_address must be a valid email address.": "Invalid email address",
+		"email_address must be a valid email address.":
+			"Invalid email address.",
 		"Passwords must be 8 characters or more.":
-			"Password must be at least 8 characters",
+			"Password must be at least 8 characters.",
 		"Password has been found in an online data breach. For account safety, please use a different password.":
-			"Insecure password, please try another",
+			"Insecure password, please try another.",
 		"That email address is taken. Please try another.":
-			"Email address is already in use",
-		"Incorrect code": "Incorrect verification code",
+			"Email address is already in use.",
+		"Incorrect code": "Incorrect verification code.",
 	};
 	// Handle submission of sign-up form
 	const onSignUpPress = async () => {
@@ -127,6 +128,15 @@ export const ClerkSignUp = (prop) => {
 				/>
 				<Text>{errorMsg}</Text>
 				<Button title="Continue" onPress={onSignUpPress} />
+				<View>
+					<Text>Already have an account?</Text>
+					<Text
+						onPress={() => {
+							setLogInProcess(2);
+						}}>
+						Sign in
+					</Text>
+				</View>
 			</>
 		</View>
 	);
