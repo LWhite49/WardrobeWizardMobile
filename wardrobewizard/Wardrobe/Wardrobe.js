@@ -5,7 +5,7 @@ import { AccountSettings } from "./AccountSettings";
 import { SavedOutfits } from "./SavedOutfits";
 import { MotiView } from "moti";
 import { useIsFocused } from "@react-navigation/native";
-import { useClerk } from "@clerk/clerk-react";
+import { useClerk, useUser } from "@clerk/clerk-expo";
 // Wardrobe Component will display outfits stored in user's Clerk metadata in a horizontal scrollable feed
 // Information about the user's rating vector will also be displayed
 
@@ -27,8 +27,11 @@ export const Wardrobe = () => {
 	// -1 == Saved Outfits, 1 == Account Settings
 	const [wardrobeState, setWardrobeState] = useState(-1);
 
-	// Source sign out function
+	// Source user data and methods
+	const { user } = useUser();
 	const { signOut } = useClerk();
+
+	// Handler for signing out user
 	const handleSignOut = async () => {
 		await signOut();
 	};
@@ -56,7 +59,10 @@ export const Wardrobe = () => {
 				{wardrobeState == -1 ? (
 					<SavedOutfits />
 				) : (
-					<AccountSettings signOutFn={handleSignOut} />
+					<AccountSettings
+						signOutFn={handleSignOut}
+						userId={user.id}
+					/>
 				)}
 			</>
 		</MotiView>

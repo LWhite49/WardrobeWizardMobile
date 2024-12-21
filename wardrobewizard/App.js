@@ -2,9 +2,12 @@ import "react-native-reanimated";
 import "react-native-gesture-handler";
 import { ClerkProvider } from "@clerk/clerk-expo";
 import { tokenCache } from "./utils/cache";
-import { createContext } from "react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { WrappedApp } from "./WrappedApp";
-// Root Component will have wrappers for Navigation, Clerk, and Context
+
+// Root Component will have wrappers for Clerk, and React Query
+
+const queryClient = new QueryClient();
 
 export default function App() {
 	// Source env vars
@@ -16,7 +19,9 @@ export default function App() {
 		<ClerkProvider
 			tokenCache={tokenCache}
 			publishableKey={clerkPublishableKey}>
-			<WrappedApp />
+			<QueryClientProvider client={queryClient}>
+				<WrappedApp />
+			</QueryClientProvider>
 		</ClerkProvider>
 	);
 }

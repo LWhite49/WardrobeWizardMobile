@@ -2,7 +2,7 @@ import { LogInStyles } from "./LogInStyles";
 import { View, Text, Button } from "react-native";
 import { ClerkSignUp } from "../utils/ClerkSignUp/ClerkSignUp";
 import { ClerkSignIn } from "../utils/ClerkSignIn/ClerkSignIn";
-import { SignedIn, SignedOut, useUser } from "@clerk/clerk-expo";
+import { SignedIn, SignedOut } from "@clerk/clerk-expo";
 import { useState } from "react";
 
 export const LogIn = () => {
