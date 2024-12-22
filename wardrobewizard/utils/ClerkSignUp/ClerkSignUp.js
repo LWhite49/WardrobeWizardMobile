@@ -3,6 +3,8 @@ import { Text, TextInput, Button, View } from "react-native";
 import { useSignUp } from "@clerk/clerk-expo";
 import { useRouter } from "expo-router";
 import { ClerkSignUpStyles } from "./ClerkSignUpStyles";
+import { AppContext } from "../../WrappedApp";
+import { useContext } from "react";
 
 export const ClerkSignUp = (prop) => {
 	const setLogInProcess = prop.setLogInProcess;
@@ -15,6 +17,8 @@ export const ClerkSignUp = (prop) => {
 	const [code, setCode] = useState("");
 	const [errorMsg, setErrorMsg] = useState("");
 
+	// Source from context
+	const { setInitializeUserBool } = useContext(AppContext);
 	// Define dictionary mapping error codes to error messages
 	const errorMessages = {
 		"email_address must be a valid email address.":
@@ -65,8 +69,9 @@ export const ClerkSignUp = (prop) => {
 			});
 
 			// If verification was completed, set the session to active
-			// and redirect the user
+			// redirect the user
 			if (signUpAttempt.status === "complete") {
+				setInitializeUserBool(true);
 				await setActive({ session: signUpAttempt.createdSessionId });
 				router.replace("/");
 			} else {
