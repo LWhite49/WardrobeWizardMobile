@@ -1,10 +1,11 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { ClerkLoaded, useAuth } from "@clerk/clerk-expo";
-import { useState, createContext } from "react";
+import { useState, useEffect, createContext } from "react";
 import { HomeDisplay } from "./HomeDisplay/HomeDisplay";
 import { LogIn } from "./LogIn/LogIn";
-import { useMutation } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import { initializeUser, deleteUser } from "./methods/clerkUserMethods";
+import { fetchOutfits } from "./methods/outfitSourcingMethods";
 
 // Establish context
 export const AppContext = createContext();
@@ -15,6 +16,60 @@ export const WrappedApp = () => {
 
 	// State to decide whether to initialize user after sign in
 	const [initializeUserBool, setInitializeUserBool] = useState(false);
+
+	// State for the feed of outfits to display
+	const [outfitFeed, setOutfitFeed] = useState({
+		outfits: [],
+		currIndex: 0,
+		length: 0,
+		wasRandom: false,
+	});
+
+	// State for user's local sizing information
+	const [size, setSize] = useState({
+		topSizes: [],
+		bottomSizes: [],
+		shoeSizes: [],
+	});
+
+	// State for user's local gender information
+	const [gender, setGender] = useState({
+		top: "male",
+		bottom: "male",
+		shoe: "male",
+	});
+
+	// Define outfitCount and palletSize states, as well as resetFeed bool
+	const [palletSize, setPalletSize] = useState(50);
+	const [outfitCount, setOutfitCount] = useState(10);
+	const [resetFeed, setResetFeed] = useState(true);
+
+	// Local state for fetch loading
+	const [isFeedLoading, setIsFeedLoading] = useState(false);
+	// Query for fetching outfit feed from backend
+	const { refetch: refetchFeed } = useQuery({
+		queryKey: [
+			"outfitFeed",
+			size,
+			gender,
+			palletSize,
+			outfitCount,
+			resetFeed,
+			setOutfitFeed,
+			setIsFeedLoading,
+		],
+		queryFn: () =>
+			fetchOutfits(
+				size,
+				gender,
+				palletSize,
+				outfitCount,
+				resetFeed,
+				setOutfitFeed,
+				setIsFeedLoading
+			),
+		enabled: false,
+	});
 
 	// Mutation to initialize user
 	const initializeUserMutation = useMutation({
@@ -28,6 +83,14 @@ export const WrappedApp = () => {
 		mutationFn: deleteUser,
 	});
 
+	// useEffect to source original outfit feed
+	useEffect(() => {
+		console.log("Sourcing Initial Feed");
+		setPalletSize(30);
+		setOutfitCount(10);
+		refetchFeed();
+	}, []);
+
 	return (
 		<AppContext.Provider
 			value={{
@@ -35,6 +98,8 @@ export const WrappedApp = () => {
 				initializeUserMutation,
 				setInitializeUserBool,
 				initializeUserBool,
+				outfitFeed,
+				isFeedLoading,
 			}}>
 			<NavigationContainer>
 				{isSignedIn ? (
