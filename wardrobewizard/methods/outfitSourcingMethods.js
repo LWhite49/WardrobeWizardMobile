@@ -33,6 +33,7 @@ export const fetchOutfits = async (
 		if (reset) {
 			setFn({
 				outfits: data.outfits,
+				pallet: data.pallet,
 				currIndex: 0,
 				length: data.outfits.length,
 				wasRandom: data.wasRandom,
@@ -40,6 +41,7 @@ export const fetchOutfits = async (
 		} else {
 			setFn((prev) => ({
 				outfits: prev.outfits.concat(data.outfits),
+				pallet: prev.pallet.concat(data.pallet),
 				currIndex: prev.currIndex,
 				length: prev.length + data.outfits.length,
 				wasRandom: data.wasRandom,

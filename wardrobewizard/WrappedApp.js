@@ -6,7 +6,6 @@ import { LogIn } from "./LogIn/LogIn";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { initializeUser, deleteUser } from "./methods/clerkUserMethods";
 import { fetchOutfits } from "./methods/outfitSourcingMethods";
-
 // Establish context
 export const AppContext = createContext();
 
@@ -20,10 +19,37 @@ export const WrappedApp = () => {
 	// State for the feed of outfits to display
 	const [outfitFeed, setOutfitFeed] = useState({
 		outfits: [],
+		pallet: [],
 		currIndex: 0,
 		length: 0,
 		wasRandom: false,
 	});
+
+	// Method for incrementing and decrementing outfit index
+	const incrementFeed = () => {
+		if (outfitFeed.currIndex + 15 > outfitFeed.length && !isFeedLoading) {
+			setResetFeed(false);
+			setPalletSize(60);
+			setOutfitCount(20);
+			refetchFeed();
+		}
+
+		setOutfitFeed((prev) => ({
+			...prev,
+			currIndex: prev.currIndex + 1,
+		}));
+	};
+
+	const decrementFeed = () => {
+		if (outfitFeed.currIndex === 0) {
+			return;
+		}
+
+		setOutfitFeed((prev) => ({
+			...prev,
+			currIndex: prev.currIndex - 1,
+		}));
+	};
 
 	// State for user's local sizing information
 	const [size, setSize] = useState({
@@ -99,7 +125,12 @@ export const WrappedApp = () => {
 				setInitializeUserBool,
 				initializeUserBool,
 				outfitFeed,
+				incrementFeed,
+				decrementFeed,
 				isFeedLoading,
+				setPalletSize,
+				setOutfitCount,
+				refetchFeed,
 			}}>
 			<NavigationContainer>
 				{isSignedIn ? (

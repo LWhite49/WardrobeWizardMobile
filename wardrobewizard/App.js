@@ -3,6 +3,7 @@ import "react-native-gesture-handler";
 import { ClerkProvider } from "@clerk/clerk-expo";
 import { tokenCache } from "./utils/cache";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { WrappedApp } from "./WrappedApp";
 
 // Root Component will have wrappers for Clerk, and React Query
@@ -20,7 +21,9 @@ export default function App() {
 			tokenCache={tokenCache}
 			publishableKey={clerkPublishableKey}>
 			<QueryClientProvider client={queryClient}>
-				<WrappedApp />
+				<GestureHandlerRootView>
+					<WrappedApp />
+				</GestureHandlerRootView>
 			</QueryClientProvider>
 		</ClerkProvider>
 	);
