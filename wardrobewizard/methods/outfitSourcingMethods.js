@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // Define path for API calls
-const API_URL = "http://192.168.0.157:10000";
+const API_URL = "http://192.168.0.162:10000";
 
 // Define function for making API call to source outfits
 export const fetchOutfits = async (
