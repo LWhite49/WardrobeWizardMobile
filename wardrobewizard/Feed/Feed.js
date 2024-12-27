@@ -34,6 +34,7 @@ export const Feed = () => {
 		decrementFeed,
 		rateOutfitMutation,
 		saveOutfitMutation,
+		setSavedOutfits,
 	} = useContext(AppContext);
 
 	// useRef to ensure only one increment per swipe
@@ -74,8 +75,6 @@ export const Feed = () => {
 
 		// Invoke mutation
 		await rateOutfitMutation.mutate(args);
-
-		//
 	};
 
 	// Save outfit handler
@@ -90,6 +89,22 @@ export const Feed = () => {
 
 		// Invoke mutation
 		await saveOutfitMutation.mutate(args);
+
+		// Update saved outfits state
+		setSavedOutfits((prev) => {
+			if (prev.length == 4) {
+				prev.shift();
+			}
+
+			return [
+				...prev,
+				{
+					top: top,
+					bottom: bottom,
+					shoes: shoe,
+				},
+			];
+		});
 	};
 
 	return (

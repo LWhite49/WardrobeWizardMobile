@@ -29,6 +29,9 @@ export const WrappedApp = () => {
 		wasRandom: false,
 	});
 
+	// State for the feed of saved outfits
+	const [savedOutfits, setSavedOutfits] = useState([]);
+
 	// Method for incrementing and decrementing outfit index
 	const incrementFeed = () => {
 		if (outfitFeed.currIndex + 15 > outfitFeed.length && !isFeedLoading) {
@@ -128,7 +131,7 @@ export const WrappedApp = () => {
 	// useEffect to source original outfit feed
 	useEffect(() => {
 		console.log("Sourcing Initial Feed");
-		setPalletSize(30);
+		setPalletSize(40);
 		setOutfitCount(10);
 		refetchFeed();
 	}, []);
@@ -149,6 +152,8 @@ export const WrappedApp = () => {
 				refetchFeed,
 				rateOutfitMutation,
 				saveOutfitMutation,
+				savedOutfits,
+				setSavedOutfits,
 			}}>
 			<NavigationContainer>
 				{isSignedIn ? (

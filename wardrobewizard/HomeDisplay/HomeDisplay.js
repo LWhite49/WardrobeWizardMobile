@@ -4,7 +4,7 @@ import { Settings } from "../Settings/Settings";
 import { Wardrobe } from "../Wardrobe/Wardrobe";
 import { useUser } from "@clerk/clerk-react";
 import { AppContext } from "../WrappedApp";
-import { useContext } from "react";
+import { useEffect, useContext } from "react";
 
 export const HomeDisplay = () => {
 	// Create Stack Navigator
@@ -14,7 +14,8 @@ export const HomeDisplay = () => {
 	const {
 		initializeUserBool,
 		initializeUserMutation,
-		setInitializeUserMutation,
+		setInitializeUserBool,
+		setSavedOutfits,
 	} = useContext(AppContext);
 
 	// Source user object
@@ -25,6 +26,12 @@ export const HomeDisplay = () => {
 		initializeUserMutation.mutate(user.id);
 		setInitializeUserBool(false);
 	}
+
+	// Access saved outfits and store in state
+
+	useEffect(() => {
+		setSavedOutfits(user.publicMetadata.saved_outfits);
+	}, [user.publicMetadata.saved_outfits]);
 
 	// Return Tab Navigator with Feed, Settings, and Wardrobe screens, initialized to Feed
 	return (

@@ -10,4 +10,8 @@ export const SavedOutfitsStyles = StyleSheet.create({
 		fontWeight: "bold",
 		padding: 8,
 	},
+	image: {
+		width: 70,
+		height: 70,
+	},
 });

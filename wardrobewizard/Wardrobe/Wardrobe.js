@@ -6,10 +6,16 @@ import { SavedOutfits } from "./SavedOutfits";
 import { MotiView } from "moti";
 import { useIsFocused } from "@react-navigation/native";
 import { useClerk, useUser } from "@clerk/clerk-expo";
+import { useContext } from "react";
+import { AppContext } from "../WrappedApp";
+
 // Wardrobe Component will display outfits stored in user's Clerk metadata in a horizontal scrollable feed
 // Information about the user's rating vector will also be displayed
 
 export const Wardrobe = () => {
+	// Source savedOutfits from context
+	const { savedOutfits } = useContext(AppContext);
+
 	// Source focus state
 	const isFocused = useIsFocused();
 	const [animationState, setAnimationState] = useState({ translateX: 100 });
@@ -57,7 +63,7 @@ export const Wardrobe = () => {
 			</Text>
 			<>
 				{wardrobeState == -1 ? (
-					<SavedOutfits />
+					<SavedOutfits savedOutfits={savedOutfits} />
 				) : (
 					<AccountSettings
 						signOutFn={handleSignOut}
