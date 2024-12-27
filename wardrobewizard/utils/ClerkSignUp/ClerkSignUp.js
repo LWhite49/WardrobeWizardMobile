@@ -3,7 +3,7 @@ import { Text, TextInput, Button, View } from "react-native";
 import { useSignUp } from "@clerk/clerk-expo";
 import { useRouter } from "expo-router";
 import { ClerkSignUpStyles } from "./ClerkSignUpStyles";
-import { AppContext } from "../../WrappedApp";
+import { AppContext } from "../../utils/AppContext";
 import { useContext } from "react";
 
 export const ClerkSignUp = (prop) => {

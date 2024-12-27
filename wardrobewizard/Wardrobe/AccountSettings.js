@@ -1,7 +1,7 @@
 import { Text, View } from "react-native";
 import { AccountSettingsStyles } from "./AccountSettingsStyles";
 import { useContext } from "react";
-import { AppContext } from "../WrappedApp";
+import { AppContext } from "../utils/AppContext";
 
 export const AccountSettings = (props) => {
 	// Source from context

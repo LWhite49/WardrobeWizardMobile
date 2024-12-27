@@ -1,6 +1,6 @@
 import { FeedDisplayStyles } from "./FeedDisplayStyles";
 import { Text, View } from "react-native";
-import { AppContext } from "../../WrappedApp";
+import { AppContext } from "../../utils/AppContext";
 import { useContext } from "react";
 import { OutfitDisplay } from "../OutfitDisplay/OutfitDisplay";
 export const FeedDisplay = (props) => {

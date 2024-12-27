@@ -7,7 +7,7 @@ import { MotiView } from "moti";
 import { useIsFocused } from "@react-navigation/native";
 import { useClerk, useUser } from "@clerk/clerk-expo";
 import { useContext } from "react";
-import { AppContext } from "../WrappedApp";
+import { AppContext } from "../utils/AppContext";
 
 // Wardrobe Component will display outfits stored in user's Clerk metadata in a horizontal scrollable feed
 // Information about the user's rating vector will also be displayed

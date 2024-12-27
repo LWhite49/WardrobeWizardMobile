@@ -3,7 +3,7 @@ import { Feed } from "../Feed/Feed";
 import { Settings } from "../Settings/Settings";
 import { Wardrobe } from "../Wardrobe/Wardrobe";
 import { useUser } from "@clerk/clerk-react";
-import { AppContext } from "../WrappedApp";
+import { AppContext } from "../utils/AppContext";
 import { useEffect, useContext } from "react";
 
 export const HomeDisplay = () => {

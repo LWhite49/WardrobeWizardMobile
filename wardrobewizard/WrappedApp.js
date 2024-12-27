@@ -1,6 +1,7 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { ClerkLoaded, useAuth } from "@clerk/clerk-expo";
-import { useState, useEffect, createContext } from "react";
+import { useState, useEffect } from "react";
+import { AppContext } from "./utils/AppContext";
 import { HomeDisplay } from "./HomeDisplay/HomeDisplay";
 import { LogIn } from "./LogIn/LogIn";
 import { useQuery, useMutation } from "@tanstack/react-query";
@@ -10,8 +11,6 @@ import {
 	saveOutfit,
 } from "./methods/clerkUserMethods";
 import { fetchOutfits, rateOutfit } from "./methods/outfitSourcingMethods";
-// Establish context
-export const AppContext = createContext();
 
 export const WrappedApp = () => {
 	// Establish signed in state, used to conditionally render Clerk components

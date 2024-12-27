@@ -5,7 +5,7 @@ import { useUser } from "@clerk/clerk-react";
 import { PanGestureHandler, State } from "react-native-gesture-handler";
 import { Text, View, Image } from "react-native";
 import { useIsFocused } from "@react-navigation/native";
-import { AppContext } from "../WrappedApp";
+import { AppContext } from "../utils/AppContext";
 import { useContext } from "react";
 import { FeedDisplay } from "./FeedDisplay/FeedDisplay";
 // Feed Component will display outfits sourced from backend in a horizontal scrollable field
