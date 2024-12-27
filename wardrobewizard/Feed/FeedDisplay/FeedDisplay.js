@@ -7,7 +7,7 @@ export const FeedDisplay = (props) => {
 	const index = props.index;
 	const buffer = props.buffer || false;
 	const rateOutfit = props.rateFn;
-
+	const saveOutfit = props.saveFn;
 	// Source outfits from context
 	const { outfitFeed } = useContext(AppContext);
 
@@ -24,6 +24,7 @@ export const FeedDisplay = (props) => {
 				}}>
 				Like
 			</Text>
+			<Text onPress={() => saveOutfit(top, bottom, shoe)}>Save</Text>
 			<OutfitDisplay item={top} buffer={buffer} />
 			<OutfitDisplay item={bottom} buffer={buffer} />
 			<OutfitDisplay item={shoe} buffer={buffer} />

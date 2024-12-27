@@ -33,6 +33,7 @@ export const Feed = () => {
 		incrementFeed,
 		decrementFeed,
 		rateOutfitMutation,
+		saveOutfitMutation,
 	} = useContext(AppContext);
 
 	// useRef to ensure only one increment per swipe
@@ -77,6 +78,20 @@ export const Feed = () => {
 		//
 	};
 
+	// Save outfit handler
+	const saveOutfit = async (top, bottom, shoe) => {
+		// Structure mutation arguments
+		const args = {
+			userId: user.id,
+			top: top,
+			bottom: bottom,
+			shoes: shoe,
+		};
+
+		// Invoke mutation
+		await saveOutfitMutation.mutate(args);
+	};
+
 	return (
 		<PanGestureHandler
 			onGestureEvent={handleSwipeGesture}
@@ -94,6 +109,7 @@ export const Feed = () => {
 					<FeedDisplay
 						index={outfitFeed.currIndex}
 						rateFn={rateOutfit}
+						saveFn={saveOutfit}
 					/>
 				)}
 			</MotiView>

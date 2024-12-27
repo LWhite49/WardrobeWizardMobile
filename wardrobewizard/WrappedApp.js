@@ -4,7 +4,11 @@ import { useState, useEffect, createContext } from "react";
 import { HomeDisplay } from "./HomeDisplay/HomeDisplay";
 import { LogIn } from "./LogIn/LogIn";
 import { useQuery, useMutation } from "@tanstack/react-query";
-import { initializeUser, deleteUser } from "./methods/clerkUserMethods";
+import {
+	initializeUser,
+	deleteUser,
+	saveOutfit,
+} from "./methods/clerkUserMethods";
 import { fetchOutfits, rateOutfit } from "./methods/outfitSourcingMethods";
 // Establish context
 export const AppContext = createContext();
@@ -103,6 +107,12 @@ export const WrappedApp = () => {
 		mutationFn: rateOutfit,
 	});
 
+	// Mutation to save outfit
+	const saveOutfitMutation = useMutation({
+		mutationKey: "saveOutfit",
+		mutationFn: saveOutfit,
+	});
+
 	// Mutation to initialize user
 	const initializeUserMutation = useMutation({
 		mutationKey: "initializeUser",
@@ -138,6 +148,7 @@ export const WrappedApp = () => {
 				setOutfitCount,
 				refetchFeed,
 				rateOutfitMutation,
+				saveOutfitMutation,
 			}}>
 			<NavigationContainer>
 				{isSignedIn ? (
