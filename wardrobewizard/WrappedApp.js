@@ -5,7 +5,7 @@ import { HomeDisplay } from "./HomeDisplay/HomeDisplay";
 import { LogIn } from "./LogIn/LogIn";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { initializeUser, deleteUser } from "./methods/clerkUserMethods";
-import { fetchOutfits } from "./methods/outfitSourcingMethods";
+import { fetchOutfits, rateOutfit } from "./methods/outfitSourcingMethods";
 // Establish context
 export const AppContext = createContext();
 
@@ -97,6 +97,12 @@ export const WrappedApp = () => {
 		enabled: false,
 	});
 
+	// Mutation to rate outfit
+	const rateOutfitMutation = useMutation({
+		mutationKey: "rateOutfit",
+		mutationFn: rateOutfit,
+	});
+
 	// Mutation to initialize user
 	const initializeUserMutation = useMutation({
 		mutationKey: "initializeUser",
@@ -131,6 +137,7 @@ export const WrappedApp = () => {
 				setPalletSize,
 				setOutfitCount,
 				refetchFeed,
+				rateOutfitMutation,
 			}}>
 			<NavigationContainer>
 				{isSignedIn ? (

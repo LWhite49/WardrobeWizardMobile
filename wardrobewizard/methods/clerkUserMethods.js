@@ -49,15 +49,20 @@ export const deleteUser = async (userId) => {
 };
 
 // Define function for making API call to rate an outfit
-export const rateOutfit = async () => {
+export const rateOutfit = async (args) => {
 	try {
 		console.log("Rating outfit...");
 		const res = await axios.post(
 			`${API_URL}/rateOutfit`,
 			{
-				id: userId,
-				outfitId: outfitId,
-				rating: rating,
+				p1: args.p1,
+				p2: args.p2,
+				p3: args.p3,
+				id1: args.id1,
+				id2: args.id2,
+				id3: args.id3,
+				rating: args.rating,
+				userId: args.userId,
 			},
 			{
 				method: "POST",

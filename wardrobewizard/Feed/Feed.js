@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { FeedStyles } from "./FeedStyles";
 import { MotiView } from "moti";
+import { useUser } from "@clerk/clerk-react";
 import { PanGestureHandler, State } from "react-native-gesture-handler";
 import { Text, View, Image } from "react-native";
 import { useIsFocused } from "@react-navigation/native";
@@ -31,7 +32,7 @@ export const Feed = () => {
 		isFeedLoading,
 		incrementFeed,
 		decrementFeed,
-		preloadedImages,
+		rateOutfitMutation,
 	} = useContext(AppContext);
 
 	// useRef to ensure only one increment per swipe
@@ -52,6 +53,30 @@ export const Feed = () => {
 	const handleSwipeEnd = (event) => {
 		if (event.nativeEvent.state === State.END) swipeRef.current = false;
 	};
+
+	// Source user id
+	const { user } = useUser();
+
+	// Rate outfit handler
+	const rateOutfit = async (top, bottom, shoe, rating) => {
+		// Structure mutation arguments
+		const args = {
+			p1: top.productColors,
+			p2: bottom.productColors,
+			p3: shoe.productColors,
+			id1: top._id,
+			id2: bottom._id,
+			id3: shoe._id,
+			rating: rating,
+			userId: user.id,
+		};
+
+		// Invoke mutation
+		await rateOutfitMutation.mutate(args);
+
+		//
+	};
+
 	return (
 		<PanGestureHandler
 			onGestureEvent={handleSwipeGesture}
@@ -66,7 +91,10 @@ export const Feed = () => {
 				outfitFeed.currIndex + 2 >= outfitFeed.length ? (
 					<Text>Loading...</Text>
 				) : (
-					<FeedDisplay index={outfitFeed.currIndex} />
+					<FeedDisplay
+						index={outfitFeed.currIndex}
+						rateFn={rateOutfit}
+					/>
 				)}
 			</MotiView>
 		</PanGestureHandler>
