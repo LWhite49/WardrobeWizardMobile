@@ -1,13 +1,13 @@
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import { FeedStyles } from "./FeedStyles";
 import { MotiView } from "moti";
 import { useUser } from "@clerk/clerk-react";
-import { PanGestureHandler, State } from "react-native-gesture-handler";
 import { Text, View, Image } from "react-native";
 import { useIsFocused } from "@react-navigation/native";
 import { AppContext } from "../utils/AppContext";
-import { useContext } from "react";
 import { FeedDisplay } from "./FeedDisplay/FeedDisplay";
+import TinderCard from "react-tinder-card";
+
 // Feed Component will display outfits sourced from backend in a horizontal scrollable field
 // Each outfit will be embedded with a like and dislike button, as well as an option to save the outfit
 // Will need to figure out how to conditionally display interactive loading spinner while fetching outfits
@@ -36,25 +36,6 @@ export const Feed = () => {
 		saveOutfitMutation,
 		setSavedOutfits,
 	} = useContext(AppContext);
-
-	// useRef to ensure only one increment per swipe
-	const swipeRef = useRef(false);
-
-	// Define gesture handlers that invoke increment and decrement feed
-	const handleSwipeGesture = (event) => {
-		if (event.nativeEvent.translationX < -20 && !swipeRef.current) {
-			incrementFeed();
-			swipeRef.current = true;
-		} else if (event.nativeEvent.translationX > 20 && !swipeRef.current) {
-			decrementFeed();
-			swipeRef.current = true;
-		}
-	};
-
-	// Reset swipeRef on gesture end
-	const handleSwipeEnd = (event) => {
-		if (event.nativeEvent.state === State.END) swipeRef.current = false;
-	};
 
 	// Source user id
 	const { user } = useUser();
@@ -107,27 +88,49 @@ export const Feed = () => {
 		});
 	};
 
+	// Handler for swiping TinderCard
+	const handleSwipe = (direction, index) => {
+		const top = outfitFeed.pallet[index].top;
+		const bottom = outfitFeed.pallet[index].bottom;
+		const shoe = outfitFeed.pallet[index].shoes;
+
+		if (direction === "right") {
+			rateOutfit(top, bottom, shoe, 1);
+		} else if (direction === "left") {
+			rateOutfit(top, bottom, shoe, 0);
+		}
+		return;
+	};
+
 	return (
-		<PanGestureHandler
-			onGestureEvent={handleSwipeGesture}
-			onHandlerStateChange={handleSwipeEnd}>
-			<MotiView
-				from={{ translateX: 100 }}
-				animate={animationState}
-				exit={{ translateX: -100 }}
-				style={FeedStyles.container}>
-				<Text style={FeedStyles.text}>Feed</Text>
-				{isFeedLoading &&
-				outfitFeed.currIndex + 2 >= outfitFeed.length ? (
-					<Text>Loading...</Text>
-				) : (
-					<FeedDisplay
-						index={outfitFeed.currIndex}
-						rateFn={rateOutfit}
-						saveFn={saveOutfit}
-					/>
-				)}
-			</MotiView>
-		</PanGestureHandler>
+		<MotiView
+			from={{ translateX: 100 }}
+			animate={animationState}
+			exit={{ translateX: -100 }}
+			style={FeedStyles.container}>
+			<Text style={FeedStyles.text}>Feed</Text>
+			{isFeedLoading && outfitFeed.currIndex + 2 >= outfitFeed.length ? (
+				<Text>Loading...</Text>
+			) : (
+				<View style={FeedStyles.container}>
+					{outfitFeed.outfits.map((item, index) => (
+						<TinderCard
+							key={
+								outfitFeed.pallet[index].top._id +
+								outfitFeed.pallet[index].bottom._id
+							}
+							onSwipe={(direction) => {
+								handleSwipe(direction, item.top);
+								incrementFeed();
+							}}
+							preventSwipe={["down"]}
+							swipeRequirementType="position"
+							swipeThreshold={10}>
+							<FeedDisplay index={index} saveFn={saveOutfit} />
+						</TinderCard>
+					))}
+				</View>
+			)}
+		</MotiView>
 	);
 };

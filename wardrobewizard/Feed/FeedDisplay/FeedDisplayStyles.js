@@ -7,5 +7,6 @@ export const FeedDisplayStyles = StyleSheet.create({
 		alignItems: "center",
 		justifyContent: "center",
 		flexDirection: "col",
+		backgroundColor: "purple",
 	},
 });

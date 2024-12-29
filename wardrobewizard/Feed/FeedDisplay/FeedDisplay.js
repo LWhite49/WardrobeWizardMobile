@@ -5,8 +5,6 @@ import { useContext } from "react";
 import { OutfitDisplay } from "../OutfitDisplay/OutfitDisplay";
 export const FeedDisplay = (props) => {
 	const index = props.index;
-	const buffer = props.buffer || false;
-	const rateOutfit = props.rateFn;
 	const saveOutfit = props.saveFn;
 	// Source outfits from context
 	const { outfitFeed } = useContext(AppContext);
@@ -17,23 +15,16 @@ export const FeedDisplay = (props) => {
 
 	// Send outfit at current index into outfit display
 	return (
-		<View style={FeedDisplayStyles.container}>
-			<Text
-				onPress={() => {
-					rateOutfit(top, bottom, shoe, 1);
-				}}>
-				Like
-			</Text>
+		<View
+			style={
+				index == outfitFeed.currIndex
+					? FeedDisplayStyles.container
+					: { display: "none" }
+			}>
 			<Text onPress={() => saveOutfit(top, bottom, shoe)}>Save</Text>
-			<OutfitDisplay item={top} buffer={buffer} />
-			<OutfitDisplay item={bottom} buffer={buffer} />
-			<OutfitDisplay item={shoe} buffer={buffer} />
-			<Text
-				onPress={() => {
-					rateOutfit(top, bottom, shoe, 0);
-				}}>
-				Dislike
-			</Text>
+			<OutfitDisplay item={top} />
+			<OutfitDisplay item={bottom} />
+			<OutfitDisplay item={shoe} />
 		</View>
 	);
 };
