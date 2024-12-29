@@ -32,11 +32,12 @@ export const WrappedApp = () => {
 	const [savedOutfits, setSavedOutfits] = useState([]);
 
 	// Method for incrementing and decrementing outfit index
-	const incrementFeed = () => {
+	const incrementFeed = async () => {
 		if (outfitFeed.currIndex + 15 > outfitFeed.length && !isFeedLoading) {
 			setResetFeed(false);
 			setPalletSize(60);
 			setOutfitCount(20);
+			await new Promise((resolve) => setTimeout(resolve, 100));
 			refetchFeed();
 		}
 
