@@ -31,10 +31,10 @@ export const Feed = () => {
 		outfitFeed,
 		isFeedLoading,
 		incrementFeed,
-		decrementFeed,
 		rateOutfitMutation,
 		saveOutfitMutation,
 		setSavedOutfits,
+		cachedImages,
 	} = useContext(AppContext);
 
 	// Source user id
@@ -112,23 +112,31 @@ export const Feed = () => {
 			{isFeedLoading && outfitFeed.currIndex + 2 >= outfitFeed.length ? (
 				<Text>Loading...</Text>
 			) : (
-				<View style={FeedStyles.container}>
-					{outfitFeed.outfits.map((item, index) => (
+				<View style={FeedStyles.feedWrapper}>
+					{
 						<TinderCard
 							key={
-								outfitFeed.pallet[index].top._id +
-								outfitFeed.pallet[index].bottom._id
+								outfitFeed.pallet[outfitFeed.currIndex].top
+									._id +
+								outfitFeed.pallet[outfitFeed.currIndex].bottom
+									._id
 							}
 							onSwipe={(direction) => {
-								handleSwipe(direction, item.top);
+								handleSwipe(
+									direction,
+									outfitFeed.outfits[outfitFeed.currIndex].top
+								);
 								incrementFeed();
 							}}
 							preventSwipe={["down"]}
 							swipeRequirementType="position"
 							swipeThreshold={10}>
-							<FeedDisplay index={index} saveFn={saveOutfit} />
+							<FeedDisplay
+								index={outfitFeed.currIndex}
+								saveFn={saveOutfit}
+							/>
 						</TinderCard>
-					))}
+					}
 				</View>
 			)}
 		</MotiView>

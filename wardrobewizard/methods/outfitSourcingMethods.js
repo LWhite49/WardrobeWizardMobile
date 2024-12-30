@@ -1,4 +1,5 @@
 import axios from "axios";
+import { cacheImages } from "../utils/CacheImages";
 
 // Define path for API calls
 const API_URL = "http://192.168.0.157:10000";
@@ -11,7 +12,8 @@ export const fetchOutfits = async (
 	outfitCount,
 	reset,
 	setFn,
-	loadSetFn
+	loadSetFn,
+	cacheSetFn
 ) => {
 	try {
 		console.log("Fetching outfits...");
@@ -38,6 +40,8 @@ export const fetchOutfits = async (
 				length: data.outfits.length,
 				wasRandom: data.wasRandom,
 			});
+			await new Promise((resolve) => setTimeout(resolve, 100));
+			cacheSetFn(await cacheImages(data));
 		} else {
 			setFn((prev) => ({
 				outfits: prev.outfits.concat(data.outfits),
@@ -46,6 +50,9 @@ export const fetchOutfits = async (
 				length: prev.length + data.outfits.length,
 				wasRandom: data.wasRandom,
 			}));
+			await new Promise((resolve) => setTimeout(resolve, 100));
+			const cache = await cacheImages(data);
+			cacheSetFn((prev) => prev.concat(cache));
 		}
 		loadSetFn(false);
 		return 0;

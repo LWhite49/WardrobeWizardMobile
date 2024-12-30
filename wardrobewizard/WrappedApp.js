@@ -1,6 +1,6 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { ClerkLoaded, useAuth } from "@clerk/clerk-expo";
-import { useState, useEffect } from "react";
+import { useState, useEffect, cache } from "react";
 import { AppContext } from "./utils/AppContext";
 import { HomeDisplay } from "./HomeDisplay/HomeDisplay";
 import { LogIn } from "./LogIn/LogIn";
@@ -28,6 +28,9 @@ export const WrappedApp = () => {
 		wasRandom: false,
 	});
 
+	// State for cached images of feed
+	const [cachedImages, setCachedImages] = useState([]);
+
 	// State for the feed of saved outfits
 	const [savedOutfits, setSavedOutfits] = useState([]);
 
@@ -41,6 +44,7 @@ export const WrappedApp = () => {
 			refetchFeed();
 		}
 
+		console.log(cachedImages);
 		setOutfitFeed((prev) => ({
 			...prev,
 			currIndex: prev.currIndex + 1,
@@ -90,6 +94,7 @@ export const WrappedApp = () => {
 			resetFeed,
 			setOutfitFeed,
 			setIsFeedLoading,
+			setCachedImages,
 		],
 		queryFn: () =>
 			fetchOutfits(
@@ -99,7 +104,8 @@ export const WrappedApp = () => {
 				outfitCount,
 				resetFeed,
 				setOutfitFeed,
-				setIsFeedLoading
+				setIsFeedLoading,
+				setCachedImages
 			),
 		enabled: false,
 	});
@@ -154,6 +160,7 @@ export const WrappedApp = () => {
 				saveOutfitMutation,
 				savedOutfits,
 				setSavedOutfits,
+				cachedImages,
 			}}>
 			<NavigationContainer>
 				{isSignedIn ? (
