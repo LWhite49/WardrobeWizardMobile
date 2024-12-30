@@ -4,16 +4,13 @@ import { Image } from "expo-image";
 export const OutfitDisplay = (props) => {
 	// Source item from props
 	const item = props.item;
-	const buffer = props.buffer || false;
+	const src = props.img;
 
 	return (
-		<View
-			style={
-				buffer ? { display: "none" } : OutfitDisplayStyles.container
-			}>
+		<View style={OutfitDisplayStyles.container}>
 			<Image
-				style={buffer ? { display: "none" } : OutfitDisplayStyles.image}
-				source={item.productImg}
+				style={OutfitDisplayStyles.image}
+				source={src == "0" ? item.productImg : src}
 				priority="high"
 			/>
 		</View>

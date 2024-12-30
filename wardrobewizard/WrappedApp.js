@@ -44,7 +44,6 @@ export const WrappedApp = () => {
 			refetchFeed();
 		}
 
-		console.log(cachedImages);
 		setOutfitFeed((prev) => ({
 			...prev,
 			currIndex: prev.currIndex + 1,

@@ -41,7 +41,7 @@ export const fetchOutfits = async (
 				wasRandom: data.wasRandom,
 			});
 			await new Promise((resolve) => setTimeout(resolve, 100));
-			cacheSetFn(await cacheImages(data));
+			await cacheSetFn(await cacheImages(data));
 		} else {
 			setFn((prev) => ({
 				outfits: prev.outfits.concat(data.outfits),
