@@ -73,6 +73,7 @@ export const fetchOutfits = async (
 				return temp;
 			});
 		}
+		await new Promise((resolve) => setTimeout(resolve, 200));
 		loadSetFn(false);
 		return 0;
 	} catch (err) {

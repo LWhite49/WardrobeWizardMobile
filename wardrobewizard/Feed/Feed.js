@@ -108,7 +108,6 @@ export const Feed = () => {
 			animate={animationState}
 			exit={{ translateX: -100 }}
 			style={FeedStyles.container}>
-			<Text style={FeedStyles.text}>Feed</Text>
 			{isFeedLoading && outfitFeed.currIndex + 2 >= outfitFeed.length ? (
 				<Text>Loading...</Text>
 			) : (

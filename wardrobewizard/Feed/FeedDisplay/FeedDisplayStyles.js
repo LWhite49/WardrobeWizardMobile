@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 export const FeedDisplayStyles = StyleSheet.create({
 	container: {
 		display: "flex",
-		gap: 12,
+		gap: 8,
 		padding: 10,
 		borderRadius: 20,
 		borderStyle: "double",
