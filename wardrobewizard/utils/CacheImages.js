@@ -20,5 +20,7 @@ export const cacheImages = async (outfitFeed) => {
 	// Wait for all promises to resolve
 	const resolvedPromises = await Promise.all(promises);
 
+	console.log(resolvedPromises);
+
 	return resolvedPromises;
 };

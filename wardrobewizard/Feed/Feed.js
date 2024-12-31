@@ -116,10 +116,13 @@ export const Feed = () => {
 					{
 						<TinderCard
 							key={
-								outfitFeed.pallet[outfitFeed.currIndex].top
-									._id +
-								outfitFeed.pallet[outfitFeed.currIndex].bottom
-									._id
+								outfitFeed.pallet[
+									outfitFeed.outfits[outfitFeed.currIndex].top
+								].top._id +
+								outfitFeed.pallet[
+									outfitFeed.outfits[outfitFeed.currIndex]
+										.bottom
+								].bottom._id
 							}
 							onSwipe={(direction) => {
 								handleSwipe(

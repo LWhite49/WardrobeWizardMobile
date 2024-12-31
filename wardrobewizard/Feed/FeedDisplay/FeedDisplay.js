@@ -9,9 +9,9 @@ export const FeedDisplay = (props) => {
 	// Source outfits from context
 	const { outfitFeed, cachedImages } = useContext(AppContext);
 
-	const top = outfitFeed.pallet[index].top;
-	const bottom = outfitFeed.pallet[index].bottom;
-	const shoe = outfitFeed.pallet[index].shoes;
+	const top = outfitFeed.pallet[outfitFeed.outfits[index].top].top;
+	const bottom = outfitFeed.pallet[outfitFeed.outfits[index].bottom].bottom;
+	const shoe = outfitFeed.pallet[outfitFeed.outfits[index].shoe].shoes;
 
 	// Send outfit at current index into outfit display
 	return (
