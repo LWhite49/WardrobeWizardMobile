@@ -13,7 +13,8 @@ export const fetchOutfits = async (
 	reset,
 	setFn,
 	loadSetFn,
-	cacheSetFn
+	cacheSetFn,
+	cacheLoopupSetFn
 ) => {
 	try {
 		console.log("Fetching outfits...");
@@ -40,19 +41,37 @@ export const fetchOutfits = async (
 				length: data.outfits.length,
 				wasRandom: data.wasRandom,
 			});
+			console.log("Resetting Cache");
 			await new Promise((resolve) => setTimeout(resolve, 100));
-			await cacheSetFn(await cacheImages(data));
+			cacheLoopupSetFn({ length: 0 });
+			await cacheSetFn(await cacheImages(data, cacheLoopupSetFn));
 		} else {
-			setFn((prev) => ({
-				outfits: prev.outfits.concat(data.outfits),
-				pallet: prev.pallet.concat(data.pallet),
-				currIndex: prev.currIndex,
-				length: prev.length + data.outfits.length,
-				wasRandom: data.wasRandom,
-			}));
+			setFn((prev) => {
+				const prevLen = prev.pallet.length;
+
+				const newOutfits = data.outfits.map((item) => {
+					return {
+						top: item.top + prevLen,
+						bottom: item.bottom + prevLen,
+						shoe: item.shoe + prevLen,
+					};
+				});
+
+				return {
+					outfits: prev.outfits.concat(newOutfits),
+					pallet: prev.pallet.concat(data.pallet),
+					currIndex: prev.currIndex,
+					length: prev.length + data.outfits.length,
+					wasRandom: data.wasRandom,
+				};
+			});
 			await new Promise((resolve) => setTimeout(resolve, 100));
-			const cache = await cacheImages(data);
-			cacheSetFn((prev) => prev.concat(cache));
+			const cache = await cacheImages(data, cacheLoopupSetFn);
+			cacheSetFn((prev) => {
+				const temp = prev.concat(cache);
+				console.log("Non-Reset Cache: ", temp);
+				return temp;
+			});
 		}
 		loadSetFn(false);
 		return 0;

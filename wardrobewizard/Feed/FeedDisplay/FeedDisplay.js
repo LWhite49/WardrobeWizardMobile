@@ -7,7 +7,7 @@ export const FeedDisplay = (props) => {
 	const index = props.index;
 	const saveOutfit = props.saveFn;
 	// Source outfits from context
-	const { outfitFeed, cachedImages } = useContext(AppContext);
+	const { outfitFeed, cachedImages, cacheLookup } = useContext(AppContext);
 
 	const top = outfitFeed.pallet[outfitFeed.outfits[index].top].top;
 	const bottom = outfitFeed.pallet[outfitFeed.outfits[index].bottom].bottom;
@@ -24,15 +24,27 @@ export const FeedDisplay = (props) => {
 			<Text onPress={() => saveOutfit(top, bottom, shoe)}>Save</Text>
 			<OutfitDisplay
 				item={top}
-				img={index == 0 ? "0" : cachedImages[index].top.localUri}
+				img={
+					index == 0
+						? "0"
+						: cachedImages[cacheLookup[top._id]].localUri
+				}
 			/>
 			<OutfitDisplay
 				item={bottom}
-				img={index == 0 ? "0" : cachedImages[index].bottom.localUri}
+				img={
+					index == 0
+						? "0"
+						: cachedImages[cacheLookup[bottom._id]].localUri
+				}
 			/>
 			<OutfitDisplay
 				item={shoe}
-				img={index == 0 ? "0" : cachedImages[index].shoes.localUri}
+				img={
+					index == 0
+						? "0"
+						: cachedImages[cacheLookup[shoe._id]].localUri
+				}
 			/>
 		</View>
 	);

@@ -31,6 +31,9 @@ export const WrappedApp = () => {
 	// State for cached images of feed
 	const [cachedImages, setCachedImages] = useState([]);
 
+	// State for cache loopup table
+	const [cacheLookup, setCacheLookup] = useState({ length: 0 });
+
 	// State for the feed of saved outfits
 	const [savedOutfits, setSavedOutfits] = useState([]);
 
@@ -94,6 +97,7 @@ export const WrappedApp = () => {
 			setOutfitFeed,
 			setIsFeedLoading,
 			setCachedImages,
+			setCacheLookup,
 		],
 		queryFn: () =>
 			fetchOutfits(
@@ -104,7 +108,8 @@ export const WrappedApp = () => {
 				resetFeed,
 				setOutfitFeed,
 				setIsFeedLoading,
-				setCachedImages
+				setCachedImages,
+				setCacheLookup
 			),
 		enabled: false,
 	});
@@ -160,6 +165,7 @@ export const WrappedApp = () => {
 				savedOutfits,
 				setSavedOutfits,
 				cachedImages,
+				cacheLookup,
 			}}>
 			<NavigationContainer>
 				{isSignedIn ? (
