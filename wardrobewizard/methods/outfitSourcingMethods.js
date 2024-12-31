@@ -106,3 +106,23 @@ export const rateOutfit = async (args) => {
 		return err;
 	}
 };
+
+export const deleteItem = async (args) => {
+	try {
+		console.log("Deleting Item...");
+		let res = await axios.post(
+			`${API_URL}/deleteItem`,
+			{
+				id: args.id,
+				collection: args.collection,
+				item: args.item,
+			},
+			{ method: "POST", credentials: "include" }
+		);
+		console.log("Item Deleted");
+		return res.data;
+	} catch (err) {
+		console.log("Trouble Deleting Outfit: ", err);
+		return err;
+	}
+};

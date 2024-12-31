@@ -1,13 +1,18 @@
 import { OutfitDisplayStyles } from "./OutfitDisplayStyles";
 import { View, Text, Linking, TouchableOpacity } from "react-native";
+import { useState } from "react";
 import { Image } from "expo-image";
 export const OutfitDisplay = (props) => {
 	// Source item from props
 	const item = props.item;
 	const src = props.img;
+	const collection = props.collection;
+	const deleteFn = props.deleteFn;
+
+	const [vis, setVis] = useState(true);
 
 	const length = item.productColors.length;
-	return (
+	return vis ? (
 		<View style={OutfitDisplayStyles.container}>
 			<View style={OutfitDisplay.palletDisplay}>
 				<View
@@ -46,14 +51,27 @@ export const OutfitDisplay = (props) => {
 					{item.productSize}
 				</Text>
 			</View>
+
+			<TouchableOpacity
+				style={OutfitDisplayStyles.deleteButton}
+				onPress={() => deleteFn(item._id, collection, item, setVis)}>
+				<Text style={OutfitDisplayStyles.deleteText}>Del</Text>
+			</TouchableOpacity>
+
 			<TouchableOpacity
 				onPress={() => Linking.openURL(item.productListing)}>
 				<Image
-					style={OutfitDisplayStyles.image}
+					style={
+						vis
+							? OutfitDisplayStyles.image
+							: OutfitDisplayStyles.invisImage
+					}
 					source={src == "0" ? item.productImg : src}
 					priority="high"
 				/>
 			</TouchableOpacity>
 		</View>
+	) : (
+		<Text style={{ fontSize: 18, color: "red" }}>XXX</Text>
 	);
 };

@@ -34,7 +34,7 @@ export const Feed = () => {
 		rateOutfitMutation,
 		saveOutfitMutation,
 		setSavedOutfits,
-		cachedImages,
+		deleteItemMutation,
 	} = useContext(AppContext);
 
 	// Source user id
@@ -88,6 +88,21 @@ export const Feed = () => {
 		});
 	};
 
+	// Delete Item handler
+	const deleteItem = async (id, collection, item, setVis) => {
+		// Structure mutation arguments
+		const args = {
+			id: id,
+			collection: collection,
+			item: item,
+		};
+
+		// Invoke mutation
+		await deleteItemMutation.mutate(args);
+
+		setVis(false);
+	};
+
 	// Handler for swiping TinderCard
 	const handleSwipe = (direction, index) => {
 		const top = outfitFeed.pallet[index].top;
@@ -136,6 +151,7 @@ export const Feed = () => {
 							<FeedDisplay
 								index={outfitFeed.currIndex}
 								saveFn={saveOutfit}
+								deleteFn={deleteItem}
 							/>
 						</TinderCard>
 					}

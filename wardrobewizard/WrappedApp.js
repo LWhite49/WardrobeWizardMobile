@@ -10,7 +10,11 @@ import {
 	deleteUser,
 	saveOutfit,
 } from "./methods/clerkUserMethods";
-import { fetchOutfits, rateOutfit } from "./methods/outfitSourcingMethods";
+import {
+	fetchOutfits,
+	rateOutfit,
+	deleteItem,
+} from "./methods/outfitSourcingMethods";
 
 export const WrappedApp = () => {
 	// Establish signed in state, used to conditionally render Clerk components
@@ -138,6 +142,12 @@ export const WrappedApp = () => {
 		mutationFn: deleteUser,
 	});
 
+	// Mutation to delete item
+	const deleteItemMutation = useMutation({
+		mutationKey: "deleteItem",
+		mutationFn: deleteItem,
+	});
+
 	// useEffect to source original outfit feed
 	useEffect(() => {
 		console.log("Sourcing Initial Feed");
@@ -166,6 +176,8 @@ export const WrappedApp = () => {
 				setSavedOutfits,
 				cachedImages,
 				cacheLookup,
+				gender,
+				deleteItemMutation,
 			}}>
 			<NavigationContainer>
 				{isSignedIn ? (

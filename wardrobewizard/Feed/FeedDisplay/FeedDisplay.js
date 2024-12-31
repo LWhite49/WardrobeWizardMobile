@@ -6,8 +6,10 @@ import { OutfitDisplay } from "../OutfitDisplay/OutfitDisplay";
 export const FeedDisplay = (props) => {
 	const index = props.index;
 	const saveOutfit = props.saveFn;
+
 	// Source outfits from context
-	const { outfitFeed, cachedImages, cacheLookup } = useContext(AppContext);
+	const { outfitFeed, cachedImages, cacheLookup, gender } =
+		useContext(AppContext);
 
 	const top = outfitFeed.pallet[outfitFeed.outfits[index].top].top;
 	const bottom = outfitFeed.pallet[outfitFeed.outfits[index].bottom].bottom;
@@ -29,6 +31,8 @@ export const FeedDisplay = (props) => {
 						? "0"
 						: cachedImages[cacheLookup[top._id]].localUri
 				}
+				collection={gender.top == "male" ? 0 : 3}
+				deleteFn={props.deleteFn}
 			/>
 			<OutfitDisplay
 				item={bottom}
@@ -37,6 +41,8 @@ export const FeedDisplay = (props) => {
 						? "0"
 						: cachedImages[cacheLookup[bottom._id]].localUri
 				}
+				collection={gender.bottom == "male" ? 1 : 4}
+				deleteFn={props.deleteFn}
 			/>
 			<OutfitDisplay
 				item={shoe}
@@ -45,6 +51,8 @@ export const FeedDisplay = (props) => {
 						? "0"
 						: cachedImages[cacheLookup[shoe._id]].localUri
 				}
+				collection={gender.shoe == "male" ? 2 : 5}
+				deleteFn={props.deleteFn}
 			/>
 		</View>
 	);

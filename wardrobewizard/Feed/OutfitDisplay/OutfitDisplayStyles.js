@@ -28,6 +28,9 @@ export const OutfitDisplayStyles = StyleSheet.create({
 		borderBottomRightRadius: 22,
 		borderTopRightRadius: 22,
 	},
+	invisImage: {
+		display: "none",
+	},
 	palletDisplay: {
 		display: "flex",
 		flexDirection: "column",
@@ -59,6 +62,26 @@ export const OutfitDisplayStyles = StyleSheet.create({
 		borderStyle: "solid",
 	},
 	sizeText: {
+		color: "white",
+		fontSize: 12,
+		fontWeight: "bold",
+		textShadowColor: "pink",
+		textShadowRadius: 2,
+		textShadowOffset: { width: 1, height: 1 },
+		padding: 6,
+	},
+	deleteButton: {
+		position: "absolute",
+		bottom: 10,
+		right: 16,
+		backgroundColor: "purple",
+		zIndex: 2,
+		borderRadius: 20,
+		borderWidth: 2,
+		borderColor: "black",
+		borderStyle: "solid",
+	},
+	deleteText: {
 		color: "white",
 		fontSize: 12,
 		fontWeight: "bold",
