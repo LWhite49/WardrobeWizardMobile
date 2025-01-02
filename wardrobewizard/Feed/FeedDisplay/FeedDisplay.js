@@ -26,33 +26,21 @@ export const FeedDisplay = (props) => {
 			<Text onPress={() => saveOutfit(top, bottom, shoe)}>Save</Text>
 			<OutfitDisplay
 				item={top}
-				img={
-					index == 0
-						? "0"
-						: cachedImages[cacheLookup[top._id]].localUri
-				}
+				img={cachedImages[cacheLookup[top._id]].localUri}
 				collection={gender.top == "male" ? 0 : 3}
 				deleteFn={props.deleteFn}
 				BGColorState={props.BGColorState}
 			/>
 			<OutfitDisplay
 				item={bottom}
-				img={
-					index == 0
-						? "0"
-						: cachedImages[cacheLookup[bottom._id]].localUri
-				}
+				img={cachedImages[cacheLookup[bottom._id]].localUri}
 				collection={gender.bottom == "male" ? 1 : 4}
 				deleteFn={props.deleteFn}
 				BGColorState={props.BGColorState}
 			/>
 			<OutfitDisplay
 				item={shoe}
-				img={
-					index == 0
-						? "0"
-						: cachedImages[cacheLookup[shoe._id]].localUri
-				}
+				img={cachedImages[cacheLookup[shoe._id]].localUri}
 				collection={gender.shoe == "male" ? 2 : 5}
 				deleteFn={props.deleteFn}
 				BGColorState={props.BGColorState}

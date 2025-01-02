@@ -56,6 +56,7 @@ export const Feed = () => {
 		saveOutfitMutation,
 		setSavedOutfits,
 		deleteItemMutation,
+		cachedImages,
 	} = useContext(AppContext);
 
 	// Source user id
@@ -152,14 +153,11 @@ export const Feed = () => {
 			exit={{ translateX: -100 }}
 			style={FeedStyles.container}
 			state={BGColorState}
-			transition={{
-				duration: 300,
-				delay: 0,
-			}}
 			onHover={() => {
 				BGColorState.transitionTo("like");
 			}}>
-			{isFeedLoading && outfitFeed.currIndex + 2 >= outfitFeed.length ? (
+			{(isFeedLoading && outfitFeed.currIndex + 2 >= outfitFeed.length) ||
+			cachedImages.length < 3 * (outfitFeed.currIndex + 1) ? (
 				<Text>Loading...</Text>
 			) : (
 				<View style={FeedStyles.feedWrapper}>
