@@ -33,6 +33,7 @@ export const FeedDisplay = (props) => {
 				}
 				collection={gender.top == "male" ? 0 : 3}
 				deleteFn={props.deleteFn}
+				BGColorState={props.BGColorState}
 			/>
 			<OutfitDisplay
 				item={bottom}
@@ -43,6 +44,7 @@ export const FeedDisplay = (props) => {
 				}
 				collection={gender.bottom == "male" ? 1 : 4}
 				deleteFn={props.deleteFn}
+				BGColorState={props.BGColorState}
 			/>
 			<OutfitDisplay
 				item={shoe}
@@ -53,6 +55,7 @@ export const FeedDisplay = (props) => {
 				}
 				collection={gender.shoe == "male" ? 2 : 5}
 				deleteFn={props.deleteFn}
+				BGColorState={props.BGColorState}
 			/>
 		</View>
 	);

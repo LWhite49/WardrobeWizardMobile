@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 import { FeedStyles } from "./FeedStyles";
-import { MotiView } from "moti";
+import { MotiView, useAnimationState } from "moti";
 import { useUser } from "@clerk/clerk-react";
-import { Text, View, Image } from "react-native";
+import { Text, View, TouchableOpacity } from "react-native";
 import { useIsFocused } from "@react-navigation/native";
 import { AppContext } from "../utils/AppContext";
 import { FeedDisplay } from "./FeedDisplay/FeedDisplay";
@@ -25,6 +25,27 @@ export const Feed = () => {
 			setAnimationState({ translateX: 100 });
 		}
 	}, [isFocused]);
+
+	// State for BG color
+	const BGColorState = useAnimationState({
+		neutral: { backgroundColor: "#f2f2f2" },
+		like: { backgroundColor: "#CBF3D2" },
+		dislike: { backgroundColor: "#F2CBCB" },
+		deciding: { backgroundColor: "#DAB7ED" },
+	});
+
+	// Flag used to track state transitions
+	let didBGColorStateChange = false;
+	// Handler for clicking Feed to decide
+	const BGColorHandler = () => {
+		BGColorState.transitionTo("deciding");
+		didBGColorStateChange = false;
+		setTimeout(() => {
+			if (!didBGColorStateChange) {
+				BGColorState.transitionTo("neutral");
+			}
+		}, 3000);
+	};
 
 	// Source from context
 	const {
@@ -109,11 +130,18 @@ export const Feed = () => {
 		const bottom = outfitFeed.pallet[index].bottom;
 		const shoe = outfitFeed.pallet[index].shoes;
 
+		didBGColorStateChange = true;
+
 		if (direction === "right") {
 			rateOutfit(top, bottom, shoe, 1);
+			BGColorState.transitionTo("like");
 		} else if (direction === "left") {
 			rateOutfit(top, bottom, shoe, 0);
+			BGColorState.transitionTo("dislike");
 		}
+		setTimeout(() => {
+			BGColorState.transitionTo("neutral");
+		}, 500);
 		return;
 	};
 
@@ -122,7 +150,15 @@ export const Feed = () => {
 			from={{ translateX: 100 }}
 			animate={animationState}
 			exit={{ translateX: -100 }}
-			style={FeedStyles.container}>
+			style={FeedStyles.container}
+			state={BGColorState}
+			transition={{
+				duration: 300,
+				delay: 0,
+			}}
+			onHover={() => {
+				BGColorState.transitionTo("like");
+			}}>
 			{isFeedLoading && outfitFeed.currIndex + 2 >= outfitFeed.length ? (
 				<Text>Loading...</Text>
 			) : (
@@ -147,12 +183,19 @@ export const Feed = () => {
 							}}
 							preventSwipe={["down"]}
 							swipeRequirementType="position"
-							swipeThreshold={10}>
-							<FeedDisplay
-								index={outfitFeed.currIndex}
-								saveFn={saveOutfit}
-								deleteFn={deleteItem}
-							/>
+							swipeThreshold={50}>
+							<TouchableOpacity
+								onPressIn={() => {
+									BGColorHandler();
+								}}
+								activeOpacity={1}>
+								<FeedDisplay
+									index={outfitFeed.currIndex}
+									saveFn={saveOutfit}
+									deleteFn={deleteItem}
+									BGColorState={BGColorHandler}
+								/>
+							</TouchableOpacity>
 						</TinderCard>
 					}
 				</View>

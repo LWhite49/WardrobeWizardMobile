@@ -8,6 +8,7 @@ export const OutfitDisplay = (props) => {
 	const src = props.img;
 	const collection = props.collection;
 	const deleteFn = props.deleteFn;
+	const BGStateFn = props.BGColorState;
 
 	const [vis, setVis] = useState(true);
 
@@ -54,12 +55,16 @@ export const OutfitDisplay = (props) => {
 
 			<TouchableOpacity
 				style={OutfitDisplayStyles.deleteButton}
-				onPress={() => deleteFn(item._id, collection, item, setVis)}>
+				onPress={() => {
+					deleteFn(item._id, collection, item, setVis);
+				}}>
 				<Text style={OutfitDisplayStyles.deleteText}>Del</Text>
 			</TouchableOpacity>
 
 			<TouchableOpacity
-				onPress={() => Linking.openURL(item.productListing)}>
+				onPress={() => Linking.openURL(item.productListing)}
+				onPressIn={() => BGStateFn()}
+				activeOpacity={0.8}>
 				<Image
 					style={
 						vis

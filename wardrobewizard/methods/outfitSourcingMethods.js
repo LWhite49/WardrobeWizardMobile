@@ -69,7 +69,6 @@ export const fetchOutfits = async (
 			const cache = await cacheImages(data, cacheLoopupSetFn);
 			cacheSetFn((prev) => {
 				const temp = prev.concat(cache);
-				console.log("Non-Reset Cache: ", temp);
 				return temp;
 			});
 		}

@@ -24,7 +24,6 @@ export const OutfitDisplayStyles = StyleSheet.create({
 	image: {
 		width: componentHeight,
 		height: componentHeight,
-		draggable: false,
 		borderBottomRightRadius: 22,
 		borderTopRightRadius: 22,
 	},

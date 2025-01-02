@@ -9,7 +9,8 @@ export const FeedStyles = StyleSheet.create({
 		flex: 1,
 		alignItems: "center",
 		justifyContent: "center",
-		top: 74,
+		width: "100%",
+		height: "100%",
 	},
 	text: {
 		fontSize: 20,
