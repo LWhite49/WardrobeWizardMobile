@@ -5,6 +5,7 @@ import { Wardrobe } from "../Wardrobe/Wardrobe";
 import { useUser } from "@clerk/clerk-react";
 import { AppContext } from "../utils/AppContext";
 import { useEffect, useContext } from "react";
+import { Asset } from "expo-asset";
 
 export const HomeDisplay = () => {
 	// Create Stack Navigator
@@ -16,6 +17,9 @@ export const HomeDisplay = () => {
 		initializeUserMutation,
 		setInitializeUserBool,
 		setSavedOutfits,
+		setCachedSavedImages,
+		setIsSavedImagesLoading,
+		setCacheLookupSaved,
 	} = useContext(AppContext);
 
 	// Source user object
@@ -27,11 +31,42 @@ export const HomeDisplay = () => {
 		setInitializeUserBool(false);
 	}
 
-	// Access saved outfits and store in state
+	// Access saved outfits and store in state, cache saved outfits
 
 	useEffect(() => {
 		setSavedOutfits(user.publicMetadata.saved_outfits);
-	}, [user.publicMetadata.saved_outfits]);
+		setIsSavedImagesLoading(true);
+
+		const temp = async () => {
+			const cache = [];
+
+			user.publicMetadata.saved_outfits.forEach((outfit) => {
+				cache.push(
+					Asset.fromURI(outfit.top.productImg).downloadAsync()
+				);
+				cache.push(
+					Asset.fromURI(outfit.bottom.productImg).downloadAsync()
+				);
+				cache.push(
+					Asset.fromURI(outfit.shoes.productImg).downloadAsync()
+				);
+
+				setCacheLookupSaved((prev) => ({
+					...prev,
+					[outfit.top._id]: prev.length,
+					[outfit.bottom._id]: prev.length + 1,
+					[outfit.shoes._id]: prev.length + 2,
+					length: prev.length + 3,
+				}));
+			});
+
+			setCachedSavedImages(await Promise.all(cache));
+
+			setIsSavedImagesLoading(false);
+		};
+
+		temp();
+	}, []);
 
 	// Return Tab Navigator with Feed, Settings, and Wardrobe screens, initialized to Feed
 	return (

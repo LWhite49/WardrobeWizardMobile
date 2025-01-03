@@ -7,6 +7,7 @@ import { useIsFocused } from "@react-navigation/native";
 import { AppContext } from "../utils/AppContext";
 import { FeedDisplay } from "./FeedDisplay/FeedDisplay";
 import TinderCard from "react-tinder-card";
+import { Asset } from "expo-asset";
 
 // Feed Component will display outfits sourced from backend in a horizontal scrollable field
 // Each outfit will be embedded with a like and dislike button, as well as an option to save the outfit
@@ -57,6 +58,9 @@ export const Feed = () => {
 		setSavedOutfits,
 		deleteItemMutation,
 		cachedImages,
+		setCachedSavedImages,
+		setIsSavedImagesLoading,
+		setCacheLookupSaved,
 	} = useContext(AppContext);
 
 	// Source user id
@@ -93,6 +97,27 @@ export const Feed = () => {
 		// Invoke mutation
 		await saveOutfitMutation.mutate(args);
 
+		// Store new images in cache
+
+		setIsSavedImagesLoading(true);
+
+		const cache = [];
+		cache.push(Asset.fromURI(top.productImg).downloadAsync());
+		cache.push(Asset.fromURI(bottom.productImg).downloadAsync());
+		cache.push(Asset.fromURI(shoe.productImg).downloadAsync());
+
+		setCacheLookupSaved((prev) => ({
+			...prev,
+			[top._id]: prev.length,
+			[bottom._id]: prev.length + 1,
+			[shoe._id]: prev.length + 2,
+			length: prev.length + 3,
+		}));
+
+		const processedCache = await Promise.all(cache);
+
+		setCachedSavedImages((prev) => [...prev, ...processedCache]);
+
 		// Update saved outfits state
 		setSavedOutfits((prev) => {
 			if (prev.length == 4) {
@@ -108,6 +133,8 @@ export const Feed = () => {
 				},
 			];
 		});
+
+		setIsSavedImagesLoading(false);
 	};
 
 	// Delete Item handler

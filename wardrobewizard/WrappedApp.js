@@ -41,6 +41,15 @@ export const WrappedApp = () => {
 	// State for the feed of saved outfits
 	const [savedOutfits, setSavedOutfits] = useState([]);
 
+	// State for saved outfits cache
+	const [cachedSavedImages, setCachedSavedImages] = useState([]);
+
+	// State for lookup table for saved outfits cache
+	const [cacheLookupSaved, setCacheLookupSaved] = useState({ length: 0 });
+
+	// State for loading saved outfits
+	const [isSavedImagesLoading, setIsSavedImagesLoading] = useState(false);
+
 	// Method for incrementing and decrementing outfit index
 	const incrementFeed = async () => {
 		if (outfitFeed.currIndex + 15 > outfitFeed.length && !isFeedLoading) {
@@ -178,6 +187,12 @@ export const WrappedApp = () => {
 				cacheLookup,
 				gender,
 				deleteItemMutation,
+				cachedSavedImages,
+				setCachedSavedImages,
+				isSavedImagesLoading,
+				setIsSavedImagesLoading,
+				cacheLookupSaved,
+				setCacheLookupSaved,
 			}}>
 			<NavigationContainer>
 				{isSignedIn ? (

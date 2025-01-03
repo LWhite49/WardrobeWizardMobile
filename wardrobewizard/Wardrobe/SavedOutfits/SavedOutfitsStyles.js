@@ -4,6 +4,7 @@ export const SavedOutfitsStyles = StyleSheet.create({
 	container: {
 		backgroundColor: "white",
 		height: 60,
+		gap: 10,
 	},
 	text: {
 		fontSize: 24,
@@ -13,5 +14,6 @@ export const SavedOutfitsStyles = StyleSheet.create({
 	image: {
 		width: 70,
 		height: 70,
+		padding: 10,
 	},
 });

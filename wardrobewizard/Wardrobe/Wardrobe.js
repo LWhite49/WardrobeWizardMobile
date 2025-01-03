@@ -1,21 +1,16 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, memo } from "react";
 import { WardrobeStyles } from "./WardrobeStyles";
 import { Text, View } from "react-native";
-import { AccountSettings } from "./AccountSettings";
-import { SavedOutfits } from "./SavedOutfits";
+import { AccountSettings } from "./AccountSettings/AccountSettings";
+import { SavedOutfits } from "./SavedOutfits/SavedOutfits";
 import { MotiView } from "moti";
 import { useIsFocused } from "@react-navigation/native";
 import { useClerk, useUser } from "@clerk/clerk-expo";
-import { useContext } from "react";
-import { AppContext } from "../utils/AppContext";
 
 // Wardrobe Component will display outfits stored in user's Clerk metadata in a horizontal scrollable feed
 // Information about the user's rating vector will also be displayed
 
 export const Wardrobe = () => {
-	// Source savedOutfits from context
-	const { savedOutfits } = useContext(AppContext);
-
 	// Source focus state
 	const isFocused = useIsFocused();
 	const [animationState, setAnimationState] = useState({ translateX: 100 });
@@ -33,6 +28,8 @@ export const Wardrobe = () => {
 	// -1 == Saved Outfits, 1 == Account Settings
 	const [wardrobeState, setWardrobeState] = useState(-1);
 
+	// Memoize SavedOutfits
+	const MemoSavedOutfits = memo(SavedOutfits);
 	// Source user data and methods
 	const { user } = useUser();
 	const { signOut } = useClerk();
@@ -63,7 +60,7 @@ export const Wardrobe = () => {
 			</Text>
 			<>
 				{wardrobeState == -1 ? (
-					<SavedOutfits savedOutfits={savedOutfits} />
+					<MemoSavedOutfits />
 				) : (
 					<AccountSettings
 						signOutFn={handleSignOut}
