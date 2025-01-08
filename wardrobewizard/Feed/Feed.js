@@ -20,6 +20,7 @@ export const Feed = () => {
 
 	// Set Animation State on Render
 	useEffect(() => {
+		BGColorState.transitionTo("neutral");
 		if (isFocused) {
 			setAnimationState({ translateX: 0 });
 		} else {
@@ -28,12 +29,15 @@ export const Feed = () => {
 	}, [isFocused]);
 
 	// State for BG color
-	const BGColorState = useAnimationState({
-		neutral: { backgroundColor: "#f2f2f2" },
-		like: { backgroundColor: "#CBF3D2" },
-		dislike: { backgroundColor: "#F2CBCB" },
-		deciding: { backgroundColor: "#DAB7ED" },
-	});
+	const BGColorState = useAnimationState(
+		{
+			neutral: { backgroundColor: "#F8D7F8" },
+			like: { backgroundColor: "#CBF3D2" },
+			dislike: { backgroundColor: "#F2CBCB" },
+			deciding: { backgroundColor: "#DAB7ED" },
+		},
+		"neutral"
+	);
 
 	// Flag used to track state transitions
 	let didBGColorStateChange = false;
