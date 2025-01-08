@@ -13,6 +13,7 @@ export const SingleDisplay = (props) => {
 		<View
 			style={{
 				...SingleDisplayStyles.container,
+				backgroundColor: "#" + props.top.productColors[0][0],
 				display: display,
 			}}>
 			<Image

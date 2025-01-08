@@ -5,10 +5,12 @@ export const SingleDisplayStyles = StyleSheet.create({
 		display: "flex",
 		flexDirection: "column",
 		gap: 8,
+		padding: 14,
+		borderRadius: 10,
 	},
 	image: {
-		width: 60,
-		height: 60,
-		padding: 10,
+		width: 80,
+		height: 80,
+		borderRadius: 10,
 	},
 });
