@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 import { FeedStyles } from "./FeedStyles";
 import { MotiView, useAnimationState } from "moti";
+import { Easing } from "react-native-reanimated";
 import { useUser } from "@clerk/clerk-react";
-import { Text, View, TouchableOpacity } from "react-native";
+import { Text, View, TouchableOpacity, Animated } from "react-native";
 import { useIsFocused } from "@react-navigation/native";
 import { AppContext } from "../utils/AppContext";
 import { FeedDisplay } from "./FeedDisplay/FeedDisplay";
@@ -177,6 +178,37 @@ export const Feed = () => {
 		return;
 	};
 
+	// BG Rotation Animation
+	const BGRotationCWValue = useRef(new Animated.Value(0)).current;
+
+	// Funciton to start infinite rotation
+	const startCWRotation = () => {
+		Animated.loop(
+			Animated.timing(BGRotationCWValue, {
+				toValue: 1,
+				duration: 4000,
+				easing: Easing.linear,
+				useNativeDriver: true,
+			})
+		).start();
+	};
+
+	// Start rotation on render
+	useEffect(() => {
+		startCWRotation();
+	}, []);
+
+	// Interpolate value
+	const BGRotationCW = BGRotationCWValue.interpolate({
+		inputRange: [0, 1],
+		outputRange: ["0deg", "360deg"],
+	});
+
+	const BGRotationCC = BGRotationCWValue.interpolate({
+		inputRange: [0, 1],
+		outputRange: ["0deg", "-360deg"],
+	});
+
 	return (
 		<MotiView
 			from={{ translateX: 100 }}
@@ -187,6 +219,97 @@ export const Feed = () => {
 			onHover={() => {
 				BGColorState.transitionTo("like");
 			}}>
+			<Animated.Image
+				source={require("../assets/whiteStar.png")}
+				style={{
+					...FeedStyles.star1,
+					transform: [{ rotate: BGRotationCC }],
+				}}
+			/>
+			<Animated.Image
+				source={require("../assets/whiteStar.png")}
+				style={{
+					...FeedStyles.star2,
+					transform: [{ rotate: BGRotationCC }],
+				}}
+			/>
+			<Animated.Image
+				source={require("../assets/whiteStar.png")}
+				style={{
+					...FeedStyles.star3,
+					transform: [{ rotate: BGRotationCC }],
+				}}
+			/>
+			<Animated.Image
+				source={require("../assets/whiteStar.png")}
+				style={{
+					...FeedStyles.star1,
+					transform: [{ rotate: BGRotationCC }],
+				}}
+			/>
+			<Animated.Image
+				source={require("../assets/whiteStar.png")}
+				style={{
+					...FeedStyles.star2,
+					transform: [{ rotate: BGRotationCC }],
+				}}
+			/>
+			<Animated.Image
+				source={require("../assets/whiteStar.png")}
+				style={{
+					...FeedStyles.star3,
+					transform: [{ rotate: BGRotationCC }],
+				}}
+			/>
+			<Animated.Image
+				source={require("../assets/whiteStar.png")}
+				style={{
+					...FeedStyles.star4,
+					transform: [{ rotate: BGRotationCW }],
+				}}
+			/>
+			<Animated.Image
+				source={require("../assets/whiteStar.png")}
+				style={{
+					...FeedStyles.star5,
+					transform: [{ rotate: BGRotationCW }],
+				}}
+			/>
+			<Animated.Image
+				source={require("../assets/whiteStar.png")}
+				style={{
+					...FeedStyles.star6,
+					transform: [{ rotate: BGRotationCW }],
+				}}
+			/>
+			<Animated.Image
+				source={require("../assets/whiteStar.png")}
+				style={{
+					...FeedStyles.star7,
+					transform: [{ rotate: BGRotationCW }],
+				}}
+			/>
+			<Animated.Image
+				source={require("../assets/whiteStar.png")}
+				style={{
+					...FeedStyles.star8,
+					transform: [{ rotate: BGRotationCW }],
+				}}
+			/>
+			<Animated.Image
+				source={require("../assets/whiteStar.png")}
+				style={{
+					...FeedStyles.star9,
+					transform: [{ rotate: BGRotationCC }],
+				}}
+			/>
+			<Animated.Image
+				source={require("../assets/whiteStar.png")}
+				style={{
+					...FeedStyles.star10,
+					transform: [{ rotate: BGRotationCC }],
+				}}
+			/>
 			{(isFeedLoading && outfitFeed.currIndex + 2 >= outfitFeed.length) ||
 			cachedImages.length < 3 * (outfitFeed.currIndex + 1) ? (
 				<Text>Loading...</Text>
