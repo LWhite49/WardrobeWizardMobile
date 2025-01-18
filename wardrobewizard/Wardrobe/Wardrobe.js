@@ -1,4 +1,5 @@
-import { useState, useEffect, memo } from "react";
+import { useState, useEffect, memo, useContext } from "react";
+import { AppContext } from "../utils/AppContext";
 import { WardrobeStyles } from "./WardrobeStyles";
 import { Text, View } from "react-native";
 import { AccountSettings } from "./AccountSettings/AccountSettings";
@@ -11,6 +12,17 @@ import { useClerk, useUser } from "@clerk/clerk-expo";
 // Information about the user's rating vector will also be displayed
 
 export const Wardrobe = () => {
+	// Source from context
+	const {
+		setSavedOutfits,
+		setCachedSavedImages,
+		setCacheLookupSaved,
+		setResetFeed,
+		refetchFeed,
+		setPalletSize,
+		setOutfitCount,
+	} = useContext(AppContext);
+
 	// Source focus state
 	const isFocused = useIsFocused();
 	const [animationState, setAnimationState] = useState({ translateX: 100 });
@@ -36,6 +48,13 @@ export const Wardrobe = () => {
 
 	// Handler for signing out user
 	const handleSignOut = async () => {
+		setSavedOutfits([]);
+		setCachedSavedImages([]);
+		setCacheLookupSaved({ length: 0 });
+		setResetFeed(true);
+		setPalletSize(40);
+		setOutfitCount(10);
+		refetchFeed();
 		await signOut();
 	};
 

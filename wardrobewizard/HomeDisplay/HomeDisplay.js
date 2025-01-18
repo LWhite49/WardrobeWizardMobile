@@ -20,16 +20,19 @@ export const HomeDisplay = () => {
 		setCachedSavedImages,
 		setIsSavedImagesLoading,
 		setCacheLookupSaved,
+		cacheLookupSaved,
 	} = useContext(AppContext);
 
 	// Source user object
 	const { user } = useUser();
 
-	// If initializeUserBool is true, invoke mutation
-	if (initializeUserBool) {
-		initializeUserMutation.mutate(user.id);
-		setInitializeUserBool(false);
-	}
+	useEffect(() => {
+		// If initializeUserBool is true, invoke mutation
+		if (initializeUserBool) {
+			initializeUserMutation.mutate(user.id);
+			setInitializeUserBool(false);
+		}
+	}, []);
 
 	// Access saved outfits and store in state, cache saved outfits
 
@@ -50,6 +53,8 @@ export const HomeDisplay = () => {
 				cache.push(
 					Asset.fromURI(outfit.shoes.productImg).downloadAsync()
 				);
+
+				console.log("Updating saved cache...");
 
 				setCacheLookupSaved((prev) => ({
 					...prev,

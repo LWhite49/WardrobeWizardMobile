@@ -66,6 +66,7 @@ export const Feed = () => {
 		setCachedSavedImages,
 		setIsSavedImagesLoading,
 		setCacheLookupSaved,
+		cacheLookupSaved,
 	} = useContext(AppContext);
 
 	// Source user id
@@ -111,13 +112,17 @@ export const Feed = () => {
 		cache.push(Asset.fromURI(bottom.productImg).downloadAsync());
 		cache.push(Asset.fromURI(shoe.productImg).downloadAsync());
 
-		setCacheLookupSaved((prev) => ({
-			...prev,
-			[top._id]: prev.length,
-			[bottom._id]: prev.length + 1,
-			[shoe._id]: prev.length + 2,
-			length: prev.length + 3,
-		}));
+		setCacheLookupSaved((prev) => {
+			return {
+				...prev,
+				[top._id]: prev.length,
+				[bottom._id]: prev.length + 1,
+				[shoe._id]: prev.length + 2,
+				length: prev.length + 3,
+			};
+		});
+
+		console.log("Updated cacheLookup");
 
 		const processedCache = await Promise.all(cache);
 
@@ -125,6 +130,15 @@ export const Feed = () => {
 
 		// Update saved outfits state
 		setSavedOutfits((prev) => {
+			if (prev == undefined) {
+				return [
+					{
+						top: top,
+						bottom: bottom,
+						shoes: shoe,
+					},
+				];
+			}
 			if (prev.length == 4) {
 				prev.shift();
 			}

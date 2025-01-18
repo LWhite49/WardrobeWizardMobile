@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Text, TextInput, Button, View } from "react-native";
 import { useSignUp } from "@clerk/clerk-expo";
 import { useRouter } from "expo-router";
 import { ClerkSignUpStyles } from "./ClerkSignUpStyles";
 import { AppContext } from "../../utils/AppContext";
-import { useContext } from "react";
 
 export const ClerkSignUp = (prop) => {
 	const setLogInProcess = prop.setLogInProcess;
@@ -18,7 +17,12 @@ export const ClerkSignUp = (prop) => {
 	const [errorMsg, setErrorMsg] = useState("");
 
 	// Source from context
-	const { setInitializeUserBool } = useContext(AppContext);
+	const {
+		setInitializeUserBool,
+		setSavedOutfits,
+		setCachedSavedImages,
+		setCacheLookupSaved,
+	} = useContext(AppContext);
 	// Define dictionary mapping error codes to error messages
 	const errorMessages = {
 		"email_address must be a valid email address.":
@@ -71,6 +75,9 @@ export const ClerkSignUp = (prop) => {
 			// If verification was completed, set the session to active
 			// redirect the user
 			if (signUpAttempt.status === "complete") {
+				setSavedOutfits([]);
+				setCachedSavedImages([]);
+				setCacheLookupSaved({ length: 0 });
 				setInitializeUserBool(true);
 				await setActive({ session: signUpAttempt.createdSessionId });
 				router.replace("/");
