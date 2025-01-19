@@ -17,7 +17,7 @@ export const SavedOutfits = () => {
 	return (
 		<View style={SavedOutfitsStyles.container}>
 			{isSavedImagesLoading ? (
-				<Text>Loading...</Text>
+				<Text>No Outfits Saved</Text>
 			) : (
 				<View style={SavedOutfitsStyles.container}>
 					{savedOutfits.length > 0 ? (

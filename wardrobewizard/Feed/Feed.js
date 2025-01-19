@@ -33,9 +33,9 @@ export const Feed = () => {
 	const BGColorState = useAnimationState(
 		{
 			neutral: { backgroundColor: "#F8D7F8" },
-			like: { backgroundColor: "#CBF3D2" },
-			dislike: { backgroundColor: "#F2CBCB" },
-			deciding: { backgroundColor: "#DAB7ED" },
+			like: { backgroundColor: "#6ADC7F" },
+			dislike: { backgroundColor: "#E25960" },
+			deciding: { backgroundColor: "#BC7CDE" },
 		},
 		"neutral"
 	);
@@ -44,11 +44,17 @@ export const Feed = () => {
 	let didBGColorStateChange = false;
 	// Handler for clicking Feed to decide
 	const BGColorHandler = () => {
-		BGColorState.transitionTo("deciding");
+		BGColorState.transitionTo("deciding", {
+			type: "timing",
+			duration: 250,
+		});
 		didBGColorStateChange = false;
 		setTimeout(() => {
 			if (!didBGColorStateChange) {
-				BGColorState.transitionTo("neutral");
+				BGColorState.transitionTo("neutral", {
+					type: "timing",
+					duration: 250,
+				});
 			}
 		}, 3000);
 	};
@@ -181,14 +187,23 @@ export const Feed = () => {
 
 		if (direction === "right") {
 			rateOutfit(top, bottom, shoe, 1);
-			BGColorState.transitionTo("like");
+			BGColorState.transitionTo("like", {
+				type: "timing",
+				duration: 250,
+			});
 		} else if (direction === "left") {
 			rateOutfit(top, bottom, shoe, 0);
-			BGColorState.transitionTo("dislike");
+			BGColorState.transitionTo("dislike", {
+				type: "timing",
+				duration: 250,
+			});
 		}
 		setTimeout(() => {
-			BGColorState.transitionTo("neutral");
-		}, 500);
+			BGColorState.transitionTo("neutral", {
+				type: "timing",
+				duration: 250,
+			});
+		}, 700);
 		return;
 	};
 
@@ -231,7 +246,10 @@ export const Feed = () => {
 			style={FeedStyles.container}
 			state={BGColorState}
 			onHover={() => {
-				BGColorState.transitionTo("like");
+				BGColorState.transitionTo("like", {
+					type: "timing",
+					duration: 250,
+				});
 			}}>
 			<Animated.Image
 				source={require("../assets/whiteStar.png")}
@@ -294,34 +312,6 @@ export const Feed = () => {
 				style={{
 					...FeedStyles.star6,
 					transform: [{ rotate: BGRotationCW }],
-				}}
-			/>
-			<Animated.Image
-				source={require("../assets/whiteStar.png")}
-				style={{
-					...FeedStyles.star7,
-					transform: [{ rotate: BGRotationCW }],
-				}}
-			/>
-			<Animated.Image
-				source={require("../assets/whiteStar.png")}
-				style={{
-					...FeedStyles.star8,
-					transform: [{ rotate: BGRotationCW }],
-				}}
-			/>
-			<Animated.Image
-				source={require("../assets/whiteStar.png")}
-				style={{
-					...FeedStyles.star9,
-					transform: [{ rotate: BGRotationCC }],
-				}}
-			/>
-			<Animated.Image
-				source={require("../assets/whiteStar.png")}
-				style={{
-					...FeedStyles.star10,
-					transform: [{ rotate: BGRotationCC }],
 				}}
 			/>
 			{(isFeedLoading && outfitFeed.currIndex + 2 >= outfitFeed.length) ||
