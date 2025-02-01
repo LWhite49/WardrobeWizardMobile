@@ -84,12 +84,230 @@ export const WrappedApp = () => {
 		shoeSizes: [],
 	});
 
+	// State for shoe range
+	const [shoeSizeRange, setShoeSizeRange] = useState([6, 15]);
+
+	// Method for updating shoe range 0 == update smaller boundary, 1 == update larger boundary
+	const updateShoeSizeRange = (bool, size) => {
+
+	};
+	// State for waist size
+	const [waistSize, setWaistSize] = useState("---");
+
+	// Method for updating waist size, 1 == increase 0 == decrease
+	const updateWaistSize = (bool) => {
+		// If waist size is at max or min
+		if (waistSize === 24 && bool === 0) {
+			return;
+		}
+		if (waistSize === 44 && bool === 1) {
+			return;
+		}
+		// If incrementing
+		if (bool === 1) {
+			// If no waist value
+			if (waistSize === "---") {
+				setWaistSize(32);
+				setSize((prev) => {...prev, bottomSizes: ["32"]});
+				setBottomSizeButtonState({
+					all: false,
+					XS: false,
+					S: false,
+					M: false,
+					L: false,
+					XL: false,
+					XXL: false,
+				});
+			} else {
+				setWaistSize(waistSize + 2);
+				setSize((prev) => {...prev, bottomSizes: [String(waistSize + 2)]});
+			}
+		} else {
+			if (waistSize === "---") {
+				setWaistSize(32);
+				setSize((prev) => {...prev, bottomSizes: ["32"]});
+				setBottomSizeButtonState({
+					all: false,
+					XS: false,
+					S: false,
+					M: false,
+					L: false,
+					XL: false,
+					XXL: false,
+				});
+			} else {
+				setWaistSize(waistSize - 2);
+				setSize((prev) => {...prev, bottomSizes: [String(waistSize - 2)]});
+			}
+		}
+	};
+
+	// Visual States for top and bottom size buttons
+	const [topSizeButtonState, setTopSizeButtonState] = useState({
+		all: true,
+		XS: false,
+		S: false,
+		M: false,
+		L: false,
+		XL: false,
+		XXL: false,
+	});
+
+	// Method for toggling a top size button
+	const toggleTopSizeButton = (sizeStr) => {
+		if (sizeStr === "all") {
+			if (topSizeButtonState.all === false) {
+				setTopSizeButtonState({
+					all: true,
+					XS: false,
+					S: false,
+					M: false,
+					L: false,
+					XL: false,
+					XXL: false,
+				});
+				setSize((prev) => ({...prev, topSizes: []}));
+			}
+		}
+		else {
+			if (topSizeButtonState[sizeStr] === false) {
+				setTopSizeButtonState((prev) => ({
+					...prev,
+					all: false,
+					[sizeStr]: true,
+				}));
+				setSize((prev) => ({...prev, topSizes: [...prev.topSizes, sizeStr]}));
+			} else {
+				if (size.topSizes.length > 1) {
+					setTopSizeButtonState((prev) => ({
+						...prev,
+						all: false,
+						[sizeStr]: false,
+					}));
+					setSize((prev) => ({...prev, topSizes: prev.topSizes.filter((item) => item !== sizeStr)}));
+				} else {
+					setTopSizeButtonState({
+						all: true,
+						XS: false,
+						S: false,
+						M: false,
+						L: false,
+						XL: false,
+						XXL: false,
+					});
+					setSize((prev) => ({...prev, topSizes: []}));
+				}
+			}
+		}
+	};
+
+	const [bottomSizeButtonState, setBottomSizeButtonState] = useState({
+		all: true,
+		XS: false,
+		S: false,
+		M: false,
+		L: false,
+		XL: false,
+		XXL: false,
+	});
+
+	// Method for toggling bottom size button
+	const toggleButtonSizeButton = (sizeStr) => {
+		if (sizeStr === "all") {
+			if (bottomSizeButtonState.all === false) {
+				setBottomSizeButtonState({
+					all: true,
+					XS: false,
+					S: false,
+					M: false,
+					L: false,
+					XL: false,
+					XXL: false,
+				});
+				setSize((prev) => ({...prev, bottomSizes: []}));
+			}
+		}
+
+		else {
+			if (bottomSizeButtonState[sizeStr] === false) {
+				setBottomSizeButtonState((prev) => {
+					...prev,
+					all: false,
+					[sizeStr]: true,
+				});
+				setSize((prev) => {
+					...prev,
+					bottomSizes: [...prev.bottomSizes, sizeStr],
+				});
+			} else {
+				if (size.bottomSizes.length > 1) {
+					setBottomSizeButtonState((prev) => {
+						...prev,
+						all: false,
+						[sizeStr]: false,
+					});
+					setSize((prev) => {
+						...prev,
+						bottomSizes: prev.bottomSizes.filter((item) => item !== sizeStr),
+					});
+				} else {
+					setBottomSizeButtonState({
+						all: true,
+						XS: false,
+						S: false,
+						M: false,
+						L: false,
+						XL: false,
+						XXL: false,
+					});
+					setSize((prev) => {
+						...prev,
+						bottomSizes: [],
+					});
+				}
+			}
+		}
+
+		if (waistSize !== "---") {
+			if (sizeStr !== "all") {
+				setSize((prev) => {
+					...prev,
+					bottomSizes: [sizeStr],
+				});
+			}
+			setWaistSize("---");
+		}
+	};
+
 	// State for user's local gender information
 	const [gender, setGender] = useState({
 		top: "male",
 		bottom: "male",
 		shoe: "male",
 	});
+
+	// Method for toggling gender value
+	const toggleGender = (style) => {
+		if (style === "top") {
+			const newVal = gender.top === "male" ? "female" : "male";
+			setGender((prev) => ({
+				...prev,
+				top: newVal,
+			}));
+		} else if (style === "bottom") {
+			const newVal = gender.bottom === "male" ? "female" : "male";
+			setGender((prev) => ({
+				...prev,
+				bottom: newVal,
+			}));
+		} else if (style === "shoe") {
+			const newVal = gender.shoe === "male" ? "female" : "male";
+			setGender((prev) => ({
+				...prev,
+				shoe: newVal,
+			}));
+		}
+	};
 
 	// Define outfitCount and palletSize states, as well as resetFeed bool
 	const [palletSize, setPalletSize] = useState(50);
