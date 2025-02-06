@@ -1,6 +1,6 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { ClerkLoaded, useAuth } from "@clerk/clerk-expo";
-import { useState, useEffect, cache } from "react";
+import { useState, useEffect } from "react";
 import { AppContext } from "./utils/AppContext";
 import { HomeDisplay } from "./HomeDisplay/HomeDisplay";
 import { LogIn } from "./LogIn/LogIn";
@@ -88,9 +88,7 @@ export const WrappedApp = () => {
 	const [shoeSizeRange, setShoeSizeRange] = useState([6, 15]);
 
 	// Method for updating shoe range 0 == update smaller boundary, 1 == update larger boundary
-	const updateShoeSizeRange = (bool, size) => {
-
-	};
+	const updateShoeSizeRange = (bool, size) => {};
 	// State for waist size
 	const [waistSize, setWaistSize] = useState("---");
 
@@ -108,7 +106,7 @@ export const WrappedApp = () => {
 			// If no waist value
 			if (waistSize === "---") {
 				setWaistSize(32);
-				setSize((prev) => {...prev, bottomSizes: ["32"]});
+				setSize((prev) => ({ ...prev, bottomSizes: ["32"] }));
 				setBottomSizeButtonState({
 					all: false,
 					XS: false,
@@ -120,12 +118,15 @@ export const WrappedApp = () => {
 				});
 			} else {
 				setWaistSize(waistSize + 2);
-				setSize((prev) => {...prev, bottomSizes: [String(waistSize + 2)]});
+				setSize((prev) => ({
+					...prev,
+					bottomSizes: [String(waistSize + 2)],
+				}));
 			}
 		} else {
 			if (waistSize === "---") {
 				setWaistSize(32);
-				setSize((prev) => {...prev, bottomSizes: ["32"]});
+				setSize((prev) => ({ ...prev, bottomSizes: ["32"] }));
 				setBottomSizeButtonState({
 					all: false,
 					XS: false,
@@ -137,7 +138,10 @@ export const WrappedApp = () => {
 				});
 			} else {
 				setWaistSize(waistSize - 2);
-				setSize((prev) => {...prev, bottomSizes: [String(waistSize - 2)]});
+				setSize((prev) => ({
+					...prev,
+					bottomSizes: [String(waistSize - 2)],
+				}));
 			}
 		}
 	};
@@ -166,17 +170,19 @@ export const WrappedApp = () => {
 					XL: false,
 					XXL: false,
 				});
-				setSize((prev) => ({...prev, topSizes: []}));
+				setSize((prev) => ({ ...prev, topSizes: [] }));
 			}
-		}
-		else {
+		} else {
 			if (topSizeButtonState[sizeStr] === false) {
 				setTopSizeButtonState((prev) => ({
 					...prev,
 					all: false,
 					[sizeStr]: true,
 				}));
-				setSize((prev) => ({...prev, topSizes: [...prev.topSizes, sizeStr]}));
+				setSize((prev) => ({
+					...prev,
+					topSizes: [...prev.topSizes, sizeStr],
+				}));
 			} else {
 				if (size.topSizes.length > 1) {
 					setTopSizeButtonState((prev) => ({
@@ -184,7 +190,12 @@ export const WrappedApp = () => {
 						all: false,
 						[sizeStr]: false,
 					}));
-					setSize((prev) => ({...prev, topSizes: prev.topSizes.filter((item) => item !== sizeStr)}));
+					setSize((prev) => ({
+						...prev,
+						topSizes: prev.topSizes.filter(
+							(item) => item !== sizeStr
+						),
+					}));
 				} else {
 					setTopSizeButtonState({
 						all: true,
@@ -195,7 +206,7 @@ export const WrappedApp = () => {
 						XL: false,
 						XXL: false,
 					});
-					setSize((prev) => ({...prev, topSizes: []}));
+					setSize((prev) => ({ ...prev, topSizes: [] }));
 				}
 			}
 		}
@@ -224,32 +235,32 @@ export const WrappedApp = () => {
 					XL: false,
 					XXL: false,
 				});
-				setSize((prev) => ({...prev, bottomSizes: []}));
+				setSize((prev) => ({ ...prev, bottomSizes: [] }));
 			}
-		}
-
-		else {
+		} else {
 			if (bottomSizeButtonState[sizeStr] === false) {
-				setBottomSizeButtonState((prev) => {
+				setBottomSizeButtonState((prev) => ({
 					...prev,
 					all: false,
 					[sizeStr]: true,
-				});
-				setSize((prev) => {
+				}));
+				setSize((prev) => ({
 					...prev,
 					bottomSizes: [...prev.bottomSizes, sizeStr],
-				});
+				}));
 			} else {
 				if (size.bottomSizes.length > 1) {
-					setBottomSizeButtonState((prev) => {
+					setBottomSizeButtonState((prev) => ({
 						...prev,
 						all: false,
 						[sizeStr]: false,
-					});
-					setSize((prev) => {
+					}));
+					setSize((prev) => ({
 						...prev,
-						bottomSizes: prev.bottomSizes.filter((item) => item !== sizeStr),
-					});
+						bottomSizes: prev.bottomSizes.filter(
+							(item) => item !== sizeStr
+						),
+					}));
 				} else {
 					setBottomSizeButtonState({
 						all: true,
@@ -260,20 +271,20 @@ export const WrappedApp = () => {
 						XL: false,
 						XXL: false,
 					});
-					setSize((prev) => {
+					setSize((prev) => ({
 						...prev,
 						bottomSizes: [],
-					});
+					}));
 				}
 			}
 		}
 
 		if (waistSize !== "---") {
 			if (sizeStr !== "all") {
-				setSize((prev) => {
+				setSize((prev) => ({
 					...prev,
 					bottomSizes: [sizeStr],
-				});
+				}));
 			}
 			setWaistSize("---");
 		}
@@ -413,6 +424,8 @@ export const WrappedApp = () => {
 				setIsSavedImagesLoading,
 				cacheLookupSaved,
 				setCacheLookupSaved,
+				topSizeButtonState,
+				toggleTopSizeButton,
 			}}>
 			<NavigationContainer>
 				{isSignedIn ? (

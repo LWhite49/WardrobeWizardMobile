@@ -337,7 +337,7 @@ export const Feed = () => {
 								);
 								incrementFeed();
 							}}
-							preventSwipe={["down"]}
+							preventSwipe={[]}
 							swipeRequirementType="position"
 							swipeThreshold={50}>
 							<TouchableOpacity

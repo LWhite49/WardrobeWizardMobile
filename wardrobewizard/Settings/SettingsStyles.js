@@ -2,6 +2,7 @@ import { StyleSheet } from "react-native";
 
 export const SettingsStyles = StyleSheet.create({
 	container: {
+		display: "flex",
 		flex: 1,
 		alignItems: "center",
 		justifyContent: "center",
@@ -9,5 +10,21 @@ export const SettingsStyles = StyleSheet.create({
 	text: {
 		fontSize: 20,
 		color: "purple",
+	},
+	topButtonContainer: {
+		display: "flex",
+		flexDirection: "row",
+		alignItems: "center",
+		gap: 10,
+	},
+	topButtonSelected: {
+		backgroundColor: "purple",
+		borderRadius: 20,
+		padding: 10,
+	},
+	topButtonUnselected: {
+		backgroundColor: "white",
+		borderRadius: 20,
+		padding: 10,
 	},
 });
