@@ -2,7 +2,7 @@ import axios from "axios";
 import { cacheImages } from "../utils/CacheImages";
 
 // Define path for API calls
-const API_URL = "http://10.226.16.207:10000";
+const API_URL = "http://10.226.57.26:10000";
 
 // Define function for making API call to source outfits
 export const fetchOutfits = async (
@@ -34,6 +34,7 @@ export const fetchOutfits = async (
 		const data = res.data;
 		console.log("Outfits Fetched");
 		if (reset) {
+			cacheSetFn([]);
 			setFn({
 				outfits: data.outfits,
 				pallet: data.pallet,
@@ -57,6 +58,9 @@ export const fetchOutfits = async (
 					};
 				});
 
+				if (reset) {
+					return prev;
+				}
 				return {
 					outfits: prev.outfits.concat(newOutfits),
 					pallet: prev.pallet.concat(data.pallet),

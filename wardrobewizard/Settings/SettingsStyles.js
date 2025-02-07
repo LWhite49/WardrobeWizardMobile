@@ -4,6 +4,7 @@ export const SettingsStyles = StyleSheet.create({
 	container: {
 		display: "flex",
 		flex: 1,
+		gap: 35,
 		alignItems: "center",
 		justifyContent: "center",
 	},
@@ -26,5 +27,10 @@ export const SettingsStyles = StyleSheet.create({
 		backgroundColor: "white",
 		borderRadius: 20,
 		padding: 10,
+	},
+	generateButton: {
+		backgroundColor: "purple",
+		borderRadius: 20,
+		padding: 30,
 	},
 });

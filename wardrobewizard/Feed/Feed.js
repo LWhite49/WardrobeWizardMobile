@@ -72,7 +72,7 @@ export const Feed = () => {
 		setCachedSavedImages,
 		setIsSavedImagesLoading,
 		setCacheLookupSaved,
-		cacheLookupSaved,
+		resetFeed,
 	} = useContext(AppContext);
 
 	// Source user id
@@ -170,6 +170,8 @@ export const Feed = () => {
 			collection: collection,
 			item: item,
 		};
+
+		incrementFeed();
 
 		// Invoke mutation
 		await deleteItemMutation.mutate(args);
@@ -315,7 +317,8 @@ export const Feed = () => {
 				}}
 			/>
 			{(isFeedLoading && outfitFeed.currIndex + 2 >= outfitFeed.length) ||
-			cachedImages.length < 3 * (outfitFeed.currIndex + 1) ? (
+			cachedImages.length < 3 * (outfitFeed.currIndex + 1) ||
+			outfitFeed.length == 0 ? (
 				<Text>Loading...</Text>
 			) : (
 				<View style={FeedStyles.feedWrapper}>

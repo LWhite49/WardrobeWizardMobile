@@ -18,6 +18,9 @@ export const Settings = () => {
 		setOutfitCount,
 		refetchFeed,
 		setResetFeed,
+		setOutfitFeed,
+		setCachedImages,
+		setCacheLookup,
 	} = useContext(AppContext);
 
 	// Source focus state
@@ -119,6 +122,25 @@ export const Settings = () => {
 					<Text>All</Text>
 				</TouchableOpacity>
 			</View>
+			<TouchableOpacity
+				onPress={() => {
+					setResetFeed(true);
+					setPalletSize(50);
+					setOutfitCount(10);
+					setOutfitFeed({
+						outfits: [],
+						pallet: [],
+						currIndex: 0,
+						length: 0,
+						wasRandom: false,
+					});
+					setCachedImages([]);
+					setCacheLookup({ length: 0 });
+					refetchFeed();
+				}}
+				style={SettingsStyles.generateButton}>
+				<Text>Generate Feed</Text>
+			</TouchableOpacity>
 		</MotiView>
 	);
 };
