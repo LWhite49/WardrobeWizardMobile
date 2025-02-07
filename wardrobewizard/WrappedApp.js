@@ -223,7 +223,7 @@ export const WrappedApp = () => {
 	});
 
 	// Method for toggling bottom size button
-	const toggleButtonSizeButton = (sizeStr) => {
+	const toggleButtonSizeBottom = (sizeStr) => {
 		if (sizeStr === "all") {
 			if (bottomSizeButtonState.all === false) {
 				setBottomSizeButtonState({
@@ -429,6 +429,11 @@ export const WrappedApp = () => {
 				setCacheLookupSaved,
 				topSizeButtonState,
 				toggleTopSizeButton,
+				bottomSizeButtonState,
+				toggleButtonSizeBottom,
+				waistSize,
+				updateWaistSize,
+				toggleGender,
 			}}>
 			<NavigationContainer>
 				{isSignedIn ? (

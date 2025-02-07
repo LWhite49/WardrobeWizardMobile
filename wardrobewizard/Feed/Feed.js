@@ -359,6 +359,15 @@ export const Feed = () => {
 					}
 				</View>
 			)}
+			{outfitFeed.wasRandom && outfitFeed.currIndex == 0 ? (
+				<View style={FeedStyles.randomGeneratedTag}>
+					<Text style={FeedStyles.randomGeneratedText}>
+						We're Short on Clothes Matching your Settings
+					</Text>
+				</View>
+			) : (
+				""
+			)}
 		</MotiView>
 	);
 };

@@ -4,13 +4,33 @@ export const SettingsStyles = StyleSheet.create({
 	container: {
 		display: "flex",
 		flex: 1,
-		gap: 35,
+		gap: 16,
 		alignItems: "center",
 		justifyContent: "center",
 	},
 	text: {
 		fontSize: 20,
 		color: "purple",
+	},
+	sliderContainer: {
+		display: "flex",
+		flexDirection: "row",
+		alignItems: "center",
+		gap: 60,
+	},
+	singleSliderContainer: {
+		display: "flex",
+		flexDirection: "column",
+		alignItems: "center",
+		gap: 10,
+	},
+	genderIcon: {
+		position: "relative",
+		bottom: 10,
+		width: 40,
+		height: 40,
+		padding: 0,
+		margin: 0,
 	},
 	topButtonContainer: {
 		display: "flex",
@@ -27,6 +47,16 @@ export const SettingsStyles = StyleSheet.create({
 		backgroundColor: "white",
 		borderRadius: 20,
 		padding: 10,
+	},
+	waistInterfaceContainer: {
+		display: "flex",
+		flexDirection: "row",
+		alignItems: "center",
+		gap: 30,
+	},
+	waistImage: {
+		width: 60,
+		height: 60,
 	},
 	generateButton: {
 		backgroundColor: "purple",
