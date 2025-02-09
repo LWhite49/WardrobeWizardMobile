@@ -9,6 +9,7 @@ import { AppContext } from "../utils/AppContext";
 import { FeedDisplay } from "./FeedDisplay/FeedDisplay";
 import TinderCard from "react-tinder-card";
 import { Asset } from "expo-asset";
+import { Loading } from "./Loading/Loading";
 
 // Feed Component will display outfits sourced from backend in a horizontal scrollable field
 // Each outfit will be embedded with a like and dislike button, as well as an option to save the outfit
@@ -319,7 +320,7 @@ export const Feed = () => {
 			{(isFeedLoading && outfitFeed.currIndex + 2 >= outfitFeed.length) ||
 			cachedImages.length < 3 * (outfitFeed.currIndex + 1) ||
 			outfitFeed.length == 0 ? (
-				<Text>Loading...</Text>
+				<Loading />
 			) : (
 				<View style={FeedStyles.feedWrapper}>
 					{
