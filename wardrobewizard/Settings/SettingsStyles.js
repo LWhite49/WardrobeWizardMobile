@@ -4,7 +4,8 @@ export const SettingsStyles = StyleSheet.create({
 	container: {
 		display: "flex",
 		flex: 1,
-		gap: 16,
+		gap: 12,
+		paddingTop: 80,
 		alignItems: "center",
 		justifyContent: "center",
 	},
@@ -59,8 +60,35 @@ export const SettingsStyles = StyleSheet.create({
 		height: 60,
 	},
 	generateButton: {
+		display: "relative",
+		bottom: 60,
 		backgroundColor: "purple",
 		borderRadius: 20,
 		padding: 30,
+	},
+	customLabel: {
+		fontFamily: "Arial",
+		fontSize: 10,
+	},
+	customLabelContainer: {
+		width: 80,
+		height: 90,
+		backgroundColor: "purple",
+	},
+	shoeSliderContainer: {
+		position: "relative",
+		bottom: 60,
+	},
+	shoeSliderTrack: {
+		backgroundColor: "grey",
+	},
+	shoeSliderSelected: {
+		backgroundColor: "purple",
+	},
+	shoeSliderMarker: {
+		backgroundColor: "purple",
+		borderColor: "white",
+		borderWidth: 2,
+		borderStyle: "solid",
 	},
 });

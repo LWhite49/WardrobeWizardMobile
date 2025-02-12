@@ -5,6 +5,9 @@ import { Text, View, Image, Switch } from "react-native";
 import { MotiView } from "moti";
 import { useIsFocused } from "@react-navigation/native";
 import { TouchableOpacity } from "react-native";
+import MultiSlider from "@ptomasroos/react-native-multi-slider";
+import { CustomMarker } from "./CustomMarker";
+
 // Settings Component will allow users to adjust their size and color pallet preferences
 // Includes option to change password, delete account, and log out will be included in this component
 
@@ -40,6 +43,7 @@ export const Settings = () => {
 			setAnimationState({ translateY: 70 });
 		}
 	}, [isFocused]);
+
 	return (
 		<MotiView
 			from={{ translateY: 70 }}
@@ -281,6 +285,23 @@ export const Settings = () => {
 				</View>
 			</View>
 			<Text style={SettingsStyles.text}>Shoe Sizes:</Text>
+			<MultiSlider
+				min={6}
+				max={15}
+				step={0.5}
+				containerStyle={SettingsStyles.shoeSliderContainer}
+				values={[6, 15]}
+				sliderLength={300}
+				trackStyle={SettingsStyles.shoeSliderTrack}
+				selectedStyle={SettingsStyles.shoeSliderSelected}
+				markerStyle={SettingsStyles.shoeSliderMarker}
+				enabledTwo={true}
+				showSteps={true}
+				showStepLabels={true}
+				snapped={true}
+				enableLabel={true}
+				customLabel={() => <CustomMarker />}
+			/>
 			<TouchableOpacity
 				onPress={() => {
 					setResetFeed(true);
