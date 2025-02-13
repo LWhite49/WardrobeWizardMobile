@@ -35,14 +35,18 @@ const MarkerStyles = StyleSheet.create({
 	},
 });
 
-export const CustomMarker = () => {
+export const CustomMarker = (props) => {
 	return (
 		<>
 			<View style={MarkerStyles.container}>
-				<Text style={MarkerStyles.text}>Max: 6.0</Text>
+				<Text style={MarkerStyles.text}>
+					Min: {props.val1.toFixed(1)}
+				</Text>
 			</View>
 			<View style={MarkerStyles.container2}>
-				<Text style={MarkerStyles.text}>Min: 15.0</Text>
+				<Text style={MarkerStyles.text}>
+					Max: {props.val2.toFixed(1)}
+				</Text>
 			</View>
 		</>
 	);

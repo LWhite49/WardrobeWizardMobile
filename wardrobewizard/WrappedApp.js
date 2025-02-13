@@ -85,10 +85,23 @@ export const WrappedApp = () => {
 	});
 
 	// State for shoe range
-	const [shoeSizeRange, setShoeSizeRange] = useState([6, 15]);
+	const [shoeSizeRange, setShoeSizeRange] = useState([6.0, 15.0]);
 
-	// Method for updating shoe range 0 == update smaller boundary, 1 == update larger boundary
-	const updateShoeSizeRange = (bool, size) => {};
+	// Method for updating shoe range inside size object
+	const updateShoeSizeRange = (values) => {
+		// Default Case
+		if (values[0] === 6 && values[1] === 15) {
+			setSize((prev) => ({ ...prev, shoeSizes: [] }));
+		} else {
+			const tempArr = [];
+			let iterator = values[0];
+			while (iterator <= values[1]) {
+				tempArr.push(iterator.toFixed(1));
+				iterator += 0.5;
+			}
+			setSize((prev) => ({ ...prev, shoeSizes: tempArr }));
+		}
+	};
 	// State for waist size
 	const [waistSize, setWaistSize] = useState("---");
 
@@ -434,6 +447,10 @@ export const WrappedApp = () => {
 				waistSize,
 				updateWaistSize,
 				toggleGender,
+				shoeSizeRange,
+				setShoeSizeRange,
+				updateShoeSizeRange,
+				size,
 			}}>
 			<NavigationContainer>
 				{isSignedIn ? (

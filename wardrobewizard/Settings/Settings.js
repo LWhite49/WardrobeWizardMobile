@@ -29,6 +29,10 @@ export const Settings = () => {
 		updateWaistSize,
 		toggleGender,
 		gender,
+		shoeSizeRange,
+		setShoeSizeRange,
+		updateShoeSizeRange,
+		size,
 	} = useContext(AppContext);
 
 	// Source focus state
@@ -300,7 +304,16 @@ export const Settings = () => {
 				showStepLabels={true}
 				snapped={true}
 				enableLabel={true}
-				customLabel={() => <CustomMarker />}
+				customLabel={() => (
+					<CustomMarker
+						val1={shoeSizeRange[0]}
+						val2={shoeSizeRange[1]}
+					/>
+				)}
+				onValuesChange={(values) => {
+					setShoeSizeRange((prev) => values);
+					updateShoeSizeRange(shoeSizeRange);
+				}}
 			/>
 			<TouchableOpacity
 				onPress={() => {
