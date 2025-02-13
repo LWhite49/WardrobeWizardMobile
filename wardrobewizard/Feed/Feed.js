@@ -33,10 +33,9 @@ export const Feed = () => {
 	// State for BG color
 	const BGColorState = useAnimationState(
 		{
-			neutral: { backgroundColor: "#F8D7F8" },
+			neutral: { backgroundColor: "#7D55D9FF" },
 			like: { backgroundColor: "#6ADC7F" },
 			dislike: { backgroundColor: "#E25960" },
-			deciding: { backgroundColor: "#BC7CDE" },
 		},
 		"neutral"
 	);
@@ -45,10 +44,6 @@ export const Feed = () => {
 	let didBGColorStateChange = false;
 	// Handler for clicking Feed to decide
 	const BGColorHandler = () => {
-		BGColorState.transitionTo("deciding", {
-			type: "timing",
-			duration: 250,
-		});
 		didBGColorStateChange = false;
 		setTimeout(() => {
 			if (!didBGColorStateChange) {

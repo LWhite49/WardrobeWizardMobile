@@ -2,6 +2,8 @@ import { OutfitDisplayStyles } from "./OutfitDisplayStyles";
 import { View, Text, Linking, TouchableOpacity } from "react-native";
 import { useState } from "react";
 import { Image } from "expo-image";
+import OutlinedText from "@kdn0325/react-native-outlined-text";
+
 export const OutfitDisplay = (props) => {
 	// Source item from props
 	const item = props.item;
@@ -48,9 +50,14 @@ export const OutfitDisplay = (props) => {
 					}}></View>
 			</View>
 			<View style={OutfitDisplayStyles.sizeButton}>
-				<Text style={OutfitDisplayStyles.sizeText}>
-					{item.productSize}
-				</Text>
+				<OutlinedText
+					text={item.productSize}
+					fontColor={"white"}
+					fontSize={20}
+					fontWeight={"700"}
+					outlineColor={"#261E95FF"}
+					outli
+				/>
 			</View>
 
 			<TouchableOpacity
@@ -58,7 +65,9 @@ export const OutfitDisplay = (props) => {
 				onPress={() => {
 					deleteFn(item._id, collection, item, setVis);
 				}}>
-				<Text style={OutfitDisplayStyles.deleteText}>Del</Text>
+				<Image
+					style={OutfitDisplayStyles.reportImage}
+					source={require("../../assets/reportSvg.svg")}></Image>
 			</TouchableOpacity>
 
 			<TouchableOpacity

@@ -1,6 +1,20 @@
 import { StyleSheet } from "react-native";
 
 export const SettingsStyles = StyleSheet.create({
+	updatedContainer: {
+		position: "absolute",
+		top: 40,
+		width: 200,
+		backgroundColor: "green",
+		padding: 10,
+		borderRadius: 20,
+		left: "50%",
+		transform: [{ translateX: -100 }],
+		zIndex: 2,
+		alignItems: "center",
+		display: "flex",
+		justifyContent: "center",
+	},
 	container: {
 		display: "flex",
 		flex: 1,

@@ -4,6 +4,8 @@ import { AppContext } from "../../utils/AppContext";
 import { useContext } from "react";
 import { OutfitDisplay } from "../OutfitDisplay/OutfitDisplay";
 import { Loading } from "../Loading/Loading";
+import { LinearGradient } from "expo-linear-gradient";
+
 export const FeedDisplay = (props) => {
 	const index = props.index;
 	const saveOutfit = props.saveFn;
@@ -25,7 +27,8 @@ export const FeedDisplay = (props) => {
 	}
 	// Send outfit at current index into outfit display
 	return (
-		<View
+		<LinearGradient
+			colors={["#5E2478", "#9021A1FF", "#1E1E60"]}
 			style={
 				index == outfitFeed.currIndex
 					? FeedDisplayStyles.container
@@ -53,6 +56,6 @@ export const FeedDisplay = (props) => {
 				deleteFn={props.deleteFn}
 				BGColorState={props.BGColorState}
 			/>
-		</View>
+		</LinearGradient>
 	);
 };
