@@ -68,7 +68,6 @@ export const Feed = () => {
 		setCachedSavedImages,
 		setIsSavedImagesLoading,
 		setCacheLookupSaved,
-		resetFeed,
 	} = useContext(AppContext);
 
 	// Source user id

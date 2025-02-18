@@ -33,7 +33,7 @@ export const Settings = () => {
 		shoeSizeRange,
 		setShoeSizeRange,
 		updateShoeSizeRange,
-		size,
+		settingsAnimation,
 	} = useContext(AppContext);
 
 	// Source focus state
@@ -43,9 +43,17 @@ export const Settings = () => {
 	// Set Animation State on Render
 	useEffect(() => {
 		if (isFocused) {
-			setAnimationState({ translateY: 0 });
+			if (settingsAnimation == "feed") {
+				setAnimationState({ translateX: 0 });
+			} else if (settingsAnimation == "wardrobe") {
+				setAnimationState({ translateX: 0 });
+			}
 		} else {
-			setAnimationState({ translateY: 70 });
+			if (settingsAnimation == "feed") {
+				setAnimationState({ translateX: -100 });
+			} else if (settingsAnimation == "wardrobe") {
+				setAnimationState({ translateX: 100 });
+			}
 		}
 	}, [isFocused]);
 
@@ -62,7 +70,6 @@ export const Settings = () => {
 			<LinearGradient
 				style={SettingsStyles.container}
 				colors={["#5E2478", "#9021A1FF", "#1E1E60"]}>
-				,
 				<MotiView
 					from={{ translateY: 70 }}
 					animate={animationState}

@@ -32,6 +32,9 @@ export const WrappedApp = () => {
 		wasRandom: false,
 	});
 
+	// State for deciding direction of settings animation
+	const [settingsAnimation, setSettingsAnimation] = useState("feed");
+
 	// State for cached images of feed
 	const [cachedImages, setCachedImages] = useState([]);
 
@@ -451,6 +454,8 @@ export const WrappedApp = () => {
 				setShoeSizeRange,
 				updateShoeSizeRange,
 				size,
+				settingsAnimation,
+				setSettingsAnimation,
 			}}>
 			<NavigationContainer>
 				{isSignedIn ? (
