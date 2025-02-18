@@ -33,7 +33,7 @@ export const Feed = () => {
 	// State for BG color
 	const BGColorState = useAnimationState(
 		{
-			neutral: { backgroundColor: "#7D55D9FF" },
+			neutral: { backgroundColor: "#9B79EBFF" },
 			like: { backgroundColor: "#6ADC7F" },
 			dislike: { backgroundColor: "#E25960" },
 		},
