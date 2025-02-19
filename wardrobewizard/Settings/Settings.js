@@ -38,21 +38,25 @@ export const Settings = () => {
 
 	// Source focus state
 	const isFocused = useIsFocused();
-	const [animationState, setAnimationState] = useState({ translateY: -70 });
+	const [animationState, setAnimationState] = useState(
+		settingsAnimation != "wardrobe"
+			? { translateX: -40 }
+			: { translateX: 40 }
+	);
 
 	// Set Animation State on Render
 	useEffect(() => {
 		if (isFocused) {
-			if (settingsAnimation == "feed") {
+			if (settingsAnimation != "wardrobe") {
 				setAnimationState({ translateX: 0 });
 			} else if (settingsAnimation == "wardrobe") {
 				setAnimationState({ translateX: 0 });
 			}
 		} else {
-			if (settingsAnimation == "feed") {
-				setAnimationState({ translateX: -100 });
+			if (settingsAnimation != "wardrobe") {
+				setAnimationState({ translateX: -40 });
 			} else if (settingsAnimation == "wardrobe") {
-				setAnimationState({ translateX: 100 });
+				setAnimationState({ translateX: 40 });
 			}
 		}
 	}, [isFocused]);
@@ -71,9 +75,7 @@ export const Settings = () => {
 				style={SettingsStyles.container}
 				colors={["#5E2478", "#9021A1FF", "#1E1E60"]}>
 				<MotiView
-					from={{ translateY: 70 }}
 					animate={animationState}
-					exit={{ translateY: -70 }}
 					style={SettingsStyles.settingsWrapper}>
 					<View style={SettingsStyles.genderContainer}>
 						<Text style={SettingsStyles.sectionHeader}>

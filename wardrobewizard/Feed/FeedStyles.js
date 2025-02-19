@@ -5,6 +5,12 @@ export const FeedStyles = StyleSheet.create({
 		flex: 1,
 		position: "relative",
 	},
+	feedPageWrapper: {
+		flex: 1,
+		alignItems: "center",
+		justifyContent: "center",
+		backgroundColor: "#9B79EBFF",
+	},
 	container: {
 		flex: 1,
 		alignItems: "center",

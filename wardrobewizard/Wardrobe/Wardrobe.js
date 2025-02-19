@@ -25,14 +25,14 @@ export const Wardrobe = () => {
 
 	// Source focus state
 	const isFocused = useIsFocused();
-	const [animationState, setAnimationState] = useState({ translateX: 100 });
+	const [animationState, setAnimationState] = useState({ translateX: 40 });
 
 	// Set Animation State on Render
 	useEffect(() => {
 		if (isFocused) {
 			setAnimationState({ translateX: 0 });
 		} else {
-			setAnimationState({ translateX: -100 });
+			setAnimationState({ translateX: -40 });
 		}
 	}, [isFocused]);
 
@@ -59,34 +59,36 @@ export const Wardrobe = () => {
 	};
 
 	return (
-		<MotiView
-			from={{ translateX: -100 }}
-			animate={animationState}
-			exit={{ translateX: 100 }}
-			style={WardrobeStyles.container}>
-			<Text style={WardrobeStyles.text}>
-				Wardrobe -{" "}
-				{wardrobeState == -1 ? "Saved Outfits" : "Account Settings"}
-			</Text>
-			<Text
-				style={WardrobeStyles.text}
-				onPress={() => {
-					setWardrobeState((prev) => prev * -1);
-				}}>
-				{wardrobeState == -1
-					? "See Account Settings"
-					: "See Saved Outfits"}
-			</Text>
-			<>
-				{wardrobeState == -1 ? (
-					<MemoSavedOutfits />
-				) : (
-					<AccountSettings
-						signOutFn={handleSignOut}
-						userId={user.id}
-					/>
-				)}
-			</>
-		</MotiView>
+		<View style={WardrobeStyles.wardobeWrapper}>
+			<MotiView
+				from={{ translateX: -100 }}
+				animate={animationState}
+				exit={{ translateX: 100 }}
+				style={WardrobeStyles.container}>
+				<Text style={WardrobeStyles.text}>
+					Wardrobe -{" "}
+					{wardrobeState == -1 ? "Saved Outfits" : "Account Settings"}
+				</Text>
+				<Text
+					style={WardrobeStyles.text}
+					onPress={() => {
+						setWardrobeState((prev) => prev * -1);
+					}}>
+					{wardrobeState == -1
+						? "See Account Settings"
+						: "See Saved Outfits"}
+				</Text>
+				<>
+					{wardrobeState == -1 ? (
+						<MemoSavedOutfits />
+					) : (
+						<AccountSettings
+							signOutFn={handleSignOut}
+							userId={user.id}
+						/>
+					)}
+				</>
+			</MotiView>
+		</View>
 	);
 };

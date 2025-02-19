@@ -2,7 +2,7 @@ import axios from "axios";
 // Define path for API calls
 // Desktop: 192.168.0.157
 // Laptop: `92.168.0.162
-const API_URL = "http://10.226.9.177:10000";
+const API_URL = "http://10.226.2.78:10000";
 
 // Define function for making API call to initialize user account
 export const initializeUser = async (userId) => {

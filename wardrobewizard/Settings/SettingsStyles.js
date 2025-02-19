@@ -28,6 +28,8 @@ export const SettingsStyles = StyleSheet.create({
 		gap: 6,
 		alignItems: "center",
 		justifyContent: "center",
+		position: "relative",
+		top: 70,
 	},
 	genderContainer: {
 		display: "flex",

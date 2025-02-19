@@ -18,7 +18,7 @@ import { Loading } from "./Loading/Loading";
 export const Feed = () => {
 	// Source focus state
 	const isFocused = useIsFocused();
-	const [animationState, setAnimationState] = useState({ translateX: -100 });
+	const [animationState, setAnimationState] = useState({ translateX: -40 });
 
 	// Set Animation State on Render
 	useEffect(() => {
@@ -26,7 +26,7 @@ export const Feed = () => {
 		if (isFocused) {
 			setAnimationState({ translateX: 0 });
 		} else {
-			setAnimationState({ translateX: 100 });
+			setAnimationState({ translateX: 40 });
 		}
 	}, [isFocused]);
 
@@ -236,133 +236,138 @@ export const Feed = () => {
 	});
 
 	return (
-		<MotiView
-			from={{ translateX: 100 }}
-			animate={animationState}
-			exit={{ translateX: -100 }}
-			style={FeedStyles.container}
-			state={BGColorState}
-			onHover={() => {
-				BGColorState.transitionTo("like", {
-					type: "timing",
-					duration: 250,
-				});
-			}}>
-			<Animated.Image
-				source={require("../assets/whiteStar.png")}
-				style={{
-					...FeedStyles.star1,
-					transform: [{ rotate: BGRotationCC }],
-				}}
-			/>
-			<Animated.Image
-				source={require("../assets/whiteStar.png")}
-				style={{
-					...FeedStyles.star2,
-					transform: [{ rotate: BGRotationCC }],
-				}}
-			/>
-			<Animated.Image
-				source={require("../assets/whiteStar.png")}
-				style={{
-					...FeedStyles.star3,
-					transform: [{ rotate: BGRotationCC }],
-				}}
-			/>
-			<Animated.Image
-				source={require("../assets/whiteStar.png")}
-				style={{
-					...FeedStyles.star1,
-					transform: [{ rotate: BGRotationCC }],
-				}}
-			/>
-			<Animated.Image
-				source={require("../assets/whiteStar.png")}
-				style={{
-					...FeedStyles.star2,
-					transform: [{ rotate: BGRotationCC }],
-				}}
-			/>
-			<Animated.Image
-				source={require("../assets/whiteStar.png")}
-				style={{
-					...FeedStyles.star3,
-					transform: [{ rotate: BGRotationCC }],
-				}}
-			/>
-			<Animated.Image
-				source={require("../assets/whiteStar.png")}
-				style={{
-					...FeedStyles.star4,
-					transform: [{ rotate: BGRotationCW }],
-				}}
-			/>
-			<Animated.Image
-				source={require("../assets/whiteStar.png")}
-				style={{
-					...FeedStyles.star5,
-					transform: [{ rotate: BGRotationCW }],
-				}}
-			/>
-			<Animated.Image
-				source={require("../assets/whiteStar.png")}
-				style={{
-					...FeedStyles.star6,
-					transform: [{ rotate: BGRotationCW }],
-				}}
-			/>
-			{(isFeedLoading && outfitFeed.currIndex + 2 >= outfitFeed.length) ||
-			cachedImages.length < 3 * (outfitFeed.currIndex + 1) ||
-			outfitFeed.length == 0 ? (
-				<Loading />
-			) : (
-				<View style={FeedStyles.feedWrapper}>
-					{
-						<TinderCard
-							key={
-								outfitFeed.pallet[
-									outfitFeed.outfits[outfitFeed.currIndex].top
-								].top._id +
-								outfitFeed.pallet[
-									outfitFeed.outfits[outfitFeed.currIndex]
-										.bottom
-								].bottom._id
-							}
-							onSwipe={(direction) => {
-								handleSwipe(
-									direction,
-									outfitFeed.outfits[outfitFeed.currIndex].top
-								);
-								incrementFeed();
-							}}
-							preventSwipe={[]}
-							swipeRequirementType="position"
-							swipeThreshold={50}>
-							<TouchableOpacity
-								onPressIn={() => {
-									BGColorHandler();
+		<View style={FeedStyles.feedPageWrapper}>
+			<MotiView
+				from={{ translateX: 100 }}
+				animate={animationState}
+				exit={{ translateX: -100 }}
+				style={FeedStyles.container}
+				state={BGColorState}
+				onHover={() => {
+					BGColorState.transitionTo("like", {
+						type: "timing",
+						duration: 250,
+					});
+				}}>
+				<Animated.Image
+					source={require("../assets/whiteStar.png")}
+					style={{
+						...FeedStyles.star1,
+						transform: [{ rotate: BGRotationCC }],
+					}}
+				/>
+				<Animated.Image
+					source={require("../assets/whiteStar.png")}
+					style={{
+						...FeedStyles.star2,
+						transform: [{ rotate: BGRotationCC }],
+					}}
+				/>
+				<Animated.Image
+					source={require("../assets/whiteStar.png")}
+					style={{
+						...FeedStyles.star3,
+						transform: [{ rotate: BGRotationCC }],
+					}}
+				/>
+				<Animated.Image
+					source={require("../assets/whiteStar.png")}
+					style={{
+						...FeedStyles.star1,
+						transform: [{ rotate: BGRotationCC }],
+					}}
+				/>
+				<Animated.Image
+					source={require("../assets/whiteStar.png")}
+					style={{
+						...FeedStyles.star2,
+						transform: [{ rotate: BGRotationCC }],
+					}}
+				/>
+				<Animated.Image
+					source={require("../assets/whiteStar.png")}
+					style={{
+						...FeedStyles.star3,
+						transform: [{ rotate: BGRotationCC }],
+					}}
+				/>
+				<Animated.Image
+					source={require("../assets/whiteStar.png")}
+					style={{
+						...FeedStyles.star4,
+						transform: [{ rotate: BGRotationCW }],
+					}}
+				/>
+				<Animated.Image
+					source={require("../assets/whiteStar.png")}
+					style={{
+						...FeedStyles.star5,
+						transform: [{ rotate: BGRotationCW }],
+					}}
+				/>
+				<Animated.Image
+					source={require("../assets/whiteStar.png")}
+					style={{
+						...FeedStyles.star6,
+						transform: [{ rotate: BGRotationCW }],
+					}}
+				/>
+				{(isFeedLoading &&
+					outfitFeed.currIndex + 2 >= outfitFeed.length) ||
+				cachedImages.length < 3 * (outfitFeed.currIndex + 1) ||
+				outfitFeed.length == 0 ? (
+					<Loading />
+				) : (
+					<View style={FeedStyles.feedWrapper}>
+						{
+							<TinderCard
+								key={
+									outfitFeed.pallet[
+										outfitFeed.outfits[outfitFeed.currIndex]
+											.top
+									].top._id +
+									outfitFeed.pallet[
+										outfitFeed.outfits[outfitFeed.currIndex]
+											.bottom
+									].bottom._id
+								}
+								onSwipe={(direction) => {
+									handleSwipe(
+										direction,
+										outfitFeed.outfits[outfitFeed.currIndex]
+											.top
+									);
+									incrementFeed();
 								}}
-								activeOpacity={1}>
-								<FeedDisplay
-									index={outfitFeed.currIndex}
-									saveFn={saveOutfit}
-									deleteFn={deleteItem}
-									BGColorState={BGColorHandler}
-								/>
-							</TouchableOpacity>
-						</TinderCard>
-					}
-				</View>
-			)}
-			{outfitFeed.wasRandom && outfitFeed.currIndex == 0 ? (
-				<View style={FeedStyles.randomGeneratedTag}>
-					<Text style={FeedStyles.randomGeneratedText}>
-						We're Short on Clothes Matching your Settings
-					</Text>
-				</View>
-			) : (
-				""
-			)}
-		</MotiView>
+								preventSwipe={[]}
+								swipeRequirementType="position"
+								swipeThreshold={50}>
+								<TouchableOpacity
+									onPressIn={() => {
+										BGColorHandler();
+									}}
+									activeOpacity={1}>
+									<FeedDisplay
+										index={outfitFeed.currIndex}
+										saveFn={saveOutfit}
+										deleteFn={deleteItem}
+										BGColorState={BGColorHandler}
+									/>
+								</TouchableOpacity>
+							</TinderCard>
+						}
+					</View>
+				)}
+				{outfitFeed.wasRandom && outfitFeed.currIndex == 0 ? (
+					<View style={FeedStyles.randomGeneratedTag}>
+						<Text style={FeedStyles.randomGeneratedText}>
+							We're Short on Clothes Matching your Settings
+						</Text>
+					</View>
+				) : (
+					""
+				)}
+			</MotiView>
+		</View>
 	);
 };
