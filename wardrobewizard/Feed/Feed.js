@@ -315,7 +315,8 @@ export const Feed = () => {
 				{(isFeedLoading &&
 					outfitFeed.currIndex + 2 >= outfitFeed.length) ||
 				cachedImages.length < 3 * (outfitFeed.currIndex + 1) ||
-				outfitFeed.length == 0 ? (
+				outfitFeed.length == 0 ||
+				true ? (
 					<Loading />
 				) : (
 					<View style={FeedStyles.feedWrapper}>

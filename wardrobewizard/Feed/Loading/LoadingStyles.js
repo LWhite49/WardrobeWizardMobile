@@ -13,7 +13,9 @@ export const LoadingStyles = StyleSheet.create({
 		fontWeight: "bold",
 	},
 	image: {
-		width: 50,
-		height: 50,
+		marginTop: 40,
+		width: 100,
+		height: 100,
+		transform: [{ rotate: "30deg" }],
 	},
 });
