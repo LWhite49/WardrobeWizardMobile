@@ -11,7 +11,7 @@ export const Loading = () => {
 		Animated.loop(
 			Animated.timing(LoadingAnimationValue, {
 				toValue: 1,
-				duration: 1500,
+				duration: 2500,
 				easing: Easing.linear,
 				useNativeDriver: true,
 			})
@@ -31,7 +31,7 @@ export const Loading = () => {
 
 	return (
 		<View style={LoadingStyles.container}>
-			<Text style={LoadingStyles.text}>Loading...</Text>
+			<Text style={LoadingStyles.text}>Generating Outfits...</Text>
 			<Animated.Image
 				source={require("../../assets/loadingSpinner.png")}
 				style={{

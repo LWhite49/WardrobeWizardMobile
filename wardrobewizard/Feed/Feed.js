@@ -212,7 +212,7 @@ export const Feed = () => {
 		Animated.loop(
 			Animated.timing(BGRotationCWValue, {
 				toValue: 1,
-				duration: 4000,
+				duration: 6000,
 				easing: Easing.linear,
 				useNativeDriver: true,
 			})
@@ -250,63 +250,63 @@ export const Feed = () => {
 					});
 				}}>
 				<Animated.Image
-					source={require("../assets/whiteStar.png")}
+					source={require("../assets/loadingStar.png")}
 					style={{
 						...FeedStyles.star1,
 						transform: [{ rotate: BGRotationCC }],
 					}}
 				/>
 				<Animated.Image
-					source={require("../assets/whiteStar.png")}
+					source={require("../assets/loadingStar.png")}
 					style={{
 						...FeedStyles.star2,
 						transform: [{ rotate: BGRotationCC }],
 					}}
 				/>
 				<Animated.Image
-					source={require("../assets/whiteStar.png")}
+					source={require("../assets/loadingStar.png")}
 					style={{
 						...FeedStyles.star3,
 						transform: [{ rotate: BGRotationCC }],
 					}}
 				/>
 				<Animated.Image
-					source={require("../assets/whiteStar.png")}
+					source={require("../assets/loadingStar.png")}
 					style={{
 						...FeedStyles.star1,
 						transform: [{ rotate: BGRotationCC }],
 					}}
 				/>
 				<Animated.Image
-					source={require("../assets/whiteStar.png")}
+					source={require("../assets/loadingStar.png")}
 					style={{
 						...FeedStyles.star2,
 						transform: [{ rotate: BGRotationCC }],
 					}}
 				/>
 				<Animated.Image
-					source={require("../assets/whiteStar.png")}
+					source={require("../assets/loadingStar.png")}
 					style={{
 						...FeedStyles.star3,
 						transform: [{ rotate: BGRotationCC }],
 					}}
 				/>
 				<Animated.Image
-					source={require("../assets/whiteStar.png")}
+					source={require("../assets/loadingStar.png")}
 					style={{
 						...FeedStyles.star4,
 						transform: [{ rotate: BGRotationCW }],
 					}}
 				/>
 				<Animated.Image
-					source={require("../assets/whiteStar.png")}
+					source={require("../assets/loadingStar.png")}
 					style={{
 						...FeedStyles.star5,
 						transform: [{ rotate: BGRotationCW }],
 					}}
 				/>
 				<Animated.Image
-					source={require("../assets/whiteStar.png")}
+					source={require("../assets/loadingStar.png")}
 					style={{
 						...FeedStyles.star6,
 						transform: [{ rotate: BGRotationCW }],
@@ -315,8 +315,7 @@ export const Feed = () => {
 				{(isFeedLoading &&
 					outfitFeed.currIndex + 2 >= outfitFeed.length) ||
 				cachedImages.length < 3 * (outfitFeed.currIndex + 1) ||
-				outfitFeed.length == 0 ||
-				true ? (
+				outfitFeed.length == 0 ? (
 					<Loading />
 				) : (
 					<View style={FeedStyles.feedWrapper}>

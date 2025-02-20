@@ -1,5 +1,5 @@
 import { FeedDisplayStyles } from "./FeedDisplayStyles";
-import { Text, View } from "react-native";
+import { Text, View, TouchableOpacity, Image } from "react-native";
 import { AppContext } from "../../utils/AppContext";
 import { useContext } from "react";
 import { OutfitDisplay } from "../OutfitDisplay/OutfitDisplay";
@@ -34,7 +34,15 @@ export const FeedDisplay = (props) => {
 					? FeedDisplayStyles.container
 					: { display: "none" }
 			}>
-			<Text onPress={() => saveOutfit(top, bottom, shoe)}>Save</Text>
+			<TouchableOpacity
+				onPress={() => saveOutfit(top, bottom, shoe)}
+				style={FeedDisplayStyles.saveFlex}
+				activeOpacity={0.5}>
+				<View style={FeedDisplayStyles.saveFlex}>
+					<Text style={FeedDisplayStyles.saveText}>Save Outfit</Text>
+				</View>
+			</TouchableOpacity>
+
 			<OutfitDisplay
 				item={top}
 				img={topScr.localUri}
