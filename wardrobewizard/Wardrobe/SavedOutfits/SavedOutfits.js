@@ -1,4 +1,5 @@
 import { Text, View } from "react-native";
+import { memo } from "react";
 import { Image } from "expo-image";
 import { SavedOutfitsStyles } from "./SavedOutfitsStyles";
 import { useContext } from "react";
@@ -14,6 +15,8 @@ export const SavedOutfits = () => {
 		cacheLookupSaved,
 	} = useContext(AppContext);
 
+	// Memoize SingleDisplay
+	const MemoSingleDisplay = memo(SingleDisplay);
 	return (
 		<View style={SavedOutfitsStyles.container}>
 			{isSavedImagesLoading ? (
@@ -22,7 +25,7 @@ export const SavedOutfits = () => {
 				<View style={SavedOutfitsStyles.container}>
 					{savedOutfits.length > 0 ? (
 						<View style={SavedOutfitsStyles.displayOne}>
-							<SingleDisplay
+							<MemoSingleDisplay
 								lockout={0 * 300}
 								topSrc={
 									cachedSavedImages[
@@ -47,14 +50,16 @@ export const SavedOutfits = () => {
 								}
 								top={savedOutfits[0].top}
 								bottom={savedOutfits[0].bottom}
-								shoes={savedOutfits[0].shoes}></SingleDisplay>
+								shoes={
+									savedOutfits[0].shoes
+								}></MemoSingleDisplay>
 						</View>
 					) : (
 						<Text>No saved outfits</Text>
 					)}
 					{savedOutfits.length > 1 ? (
 						<View style={SavedOutfitsStyles.displayTwo}>
-							<SingleDisplay
+							<MemoSingleDisplay
 								lockout={1 * 300}
 								topSrc={
 									cachedSavedImages[
@@ -79,12 +84,14 @@ export const SavedOutfits = () => {
 								}
 								top={savedOutfits[1].top}
 								bottom={savedOutfits[1].bottom}
-								shoes={savedOutfits[1].shoes}></SingleDisplay>
+								shoes={
+									savedOutfits[1].shoes
+								}></MemoSingleDisplay>
 						</View>
 					) : null}
 					{savedOutfits.length > 2 ? (
 						<View style={SavedOutfitsStyles.displayThree}>
-							<SingleDisplay
+							<MemoSingleDisplay
 								lockout={2 * 300}
 								topSrc={
 									cachedSavedImages[
@@ -109,12 +116,14 @@ export const SavedOutfits = () => {
 								}
 								top={savedOutfits[2].top}
 								bottom={savedOutfits[2].bottom}
-								shoes={savedOutfits[2].shoes}></SingleDisplay>
+								shoes={
+									savedOutfits[2].shoes
+								}></MemoSingleDisplay>
 						</View>
 					) : null}
 					{savedOutfits.length > 3 ? (
 						<View style={SavedOutfitsStyles.displayFour}>
-							<SingleDisplay
+							<MemoSingleDisplay
 								lockout={3 * 300}
 								topSrc={
 									cachedSavedImages[
@@ -139,7 +148,9 @@ export const SavedOutfits = () => {
 								}
 								top={savedOutfits[3].top}
 								bottom={savedOutfits[3].bottom}
-								shoes={savedOutfits[3].shoes}></SingleDisplay>
+								shoes={
+									savedOutfits[3].shoes
+								}></MemoSingleDisplay>
 						</View>
 					) : null}
 				</View>
