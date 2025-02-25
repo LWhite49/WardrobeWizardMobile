@@ -5,7 +5,7 @@ import { Settings } from "../Settings/Settings";
 import { Wardrobe } from "../Wardrobe/Wardrobe";
 import { useUser } from "@clerk/clerk-react";
 import { AppContext } from "../utils/AppContext";
-import { useEffect, useContext, useState } from "react";
+import { useEffect, useContext, useState, memo } from "react";
 import { Asset } from "expo-asset";
 import { TouchableOpacity, Text, StyleSheet, Image, View } from "react-native";
 
@@ -42,6 +42,10 @@ const homeDisplayStyles = StyleSheet.create({
 		top: 40,
 	},
 });
+
+const MemoWardrobe = memo(Wardrobe);
+const MemoFeed = memo(Feed);
+const MemoSettings = memo(Settings);
 
 export const HomeDisplay = () => {
 	// Create Stack Navigator
@@ -124,7 +128,7 @@ export const HomeDisplay = () => {
 			}}>
 			<Tab.Screen
 				name="Feed"
-				component={Feed}
+				component={MemoFeed}
 				options={{
 					headerShown: false,
 					tabBarButton: () => {
@@ -165,7 +169,7 @@ export const HomeDisplay = () => {
 			/>
 			<Tab.Screen
 				name="Settings"
-				component={Settings}
+				component={MemoSettings}
 				options={{
 					headerShown: false,
 					tabBarButton: () => {
@@ -205,7 +209,7 @@ export const HomeDisplay = () => {
 			/>
 			<Tab.Screen
 				name="Wardrobe"
-				component={Wardrobe}
+				component={MemoWardrobe}
 				options={{
 					headerShown: false,
 					tabBarButton: () => {

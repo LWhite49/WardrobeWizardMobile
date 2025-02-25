@@ -23,6 +23,7 @@ export const Wardrobe = () => {
 		setOutfitCount,
 	} = useContext(AppContext);
 
+	console.log("Rerendered Wardorbe");
 	// Source focus state
 	const isFocused = useIsFocused();
 	const [animationState, setAnimationState] = useState({ translateX: 40 });

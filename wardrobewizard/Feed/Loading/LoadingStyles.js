@@ -8,6 +8,14 @@ export const LoadingStyles = StyleSheet.create({
 		height: "100%",
 		width: "100%",
 	},
+	containerSkew: {
+		display: "flex",
+		justifyContent: "center",
+		alignItems: "center",
+		height: "100%",
+		width: "100%",
+		transform: [{ translateY: -80 }],
+	},
 	text: {
 		fontSize: 20,
 		fontWeight: "bold",

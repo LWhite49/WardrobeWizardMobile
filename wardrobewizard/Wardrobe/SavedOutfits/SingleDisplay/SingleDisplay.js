@@ -1,14 +1,17 @@
 import { SingleDisplayStyles } from "./SingleDisplayStyles";
 import { View, TouchableOpacity, Linking } from "react-native";
 import { Image } from "expo-image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 export const SingleDisplay = (props) => {
 	const [display, setDisplay] = useState("none");
 
-	setTimeout(() => {
-		setDisplay("flex");
-	}, props.lockout);
+	useEffect(() => {
+		setTimeout(() => {
+			setDisplay("flex");
+		}, props.lockout);
+	}, []);
+
 	return (
 		<LinearGradient
 			colors={[

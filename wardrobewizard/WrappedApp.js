@@ -53,6 +53,9 @@ export const WrappedApp = () => {
 	// State for loading saved outfits
 	const [isSavedImagesLoading, setIsSavedImagesLoading] = useState(false);
 
+	// State for post refetch timeout
+	const [postRefetchTimeout, setPostRefetchTimeout] = useState(false);
+
 	// Method for incrementing and decrementing outfit index
 	const incrementFeed = async () => {
 		if (outfitFeed.currIndex + 15 > outfitFeed.length && !isFeedLoading) {
@@ -356,6 +359,7 @@ export const WrappedApp = () => {
 			setIsFeedLoading,
 			setCachedImages,
 			setCacheLookup,
+			setPostRefetchTimeout,
 		],
 		queryFn: () =>
 			fetchOutfits(
@@ -367,7 +371,8 @@ export const WrappedApp = () => {
 				setOutfitFeed,
 				setIsFeedLoading,
 				setCachedImages,
-				setCacheLookup
+				setCacheLookup,
+				setPostRefetchTimeout
 			),
 		enabled: false,
 	});
@@ -456,6 +461,7 @@ export const WrappedApp = () => {
 				size,
 				settingsAnimation,
 				setSettingsAnimation,
+				postRefetchTimeout,
 			}}>
 			<NavigationContainer>
 				{isSignedIn ? (

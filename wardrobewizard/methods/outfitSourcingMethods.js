@@ -2,7 +2,7 @@ import axios from "axios";
 import { cacheImages } from "../utils/CacheImages";
 
 // Define path for API calls
-const API_URL = "http://10.226.22.60:10000";
+const API_URL = "http://10.226.0.197:10000";
 
 // Define function for making API call to source outfits
 export const fetchOutfits = async (
@@ -14,7 +14,8 @@ export const fetchOutfits = async (
 	setFn,
 	loadSetFn,
 	cacheSetFn,
-	cacheLoopupSetFn
+	cacheLoopupSetFn,
+	setPostRefetchTimeout
 ) => {
 	try {
 		console.log("Fetching outfits...");
@@ -33,6 +34,10 @@ export const fetchOutfits = async (
 
 		const data = res.data;
 		console.log("Outfits Fetched");
+		setPostRefetchTimeout(true);
+		setTimeout(() => {
+			setPostRefetchTimeout(false);
+		}, 2000);
 		if (reset) {
 			cacheSetFn([]);
 			setFn({

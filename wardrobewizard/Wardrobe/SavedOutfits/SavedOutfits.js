@@ -5,7 +5,7 @@ import { SavedOutfitsStyles } from "./SavedOutfitsStyles";
 import { useContext } from "react";
 import { AppContext } from "../../utils/AppContext";
 import { SingleDisplay } from "./SingleDisplay/SingleDisplay";
-
+import { Loading } from "../../Feed/Loading/Loading";
 export const SavedOutfits = () => {
 	// Source from context
 	const {
@@ -13,14 +13,18 @@ export const SavedOutfits = () => {
 		isSavedImagesLoading,
 		cachedSavedImages,
 		cacheLookupSaved,
+		postRefetchTimeout,
 	} = useContext(AppContext);
 
-	// Memoize SingleDisplay
 	const MemoSingleDisplay = memo(SingleDisplay);
+	console.log("Rerendered Saved Outfits");
 	return (
 		<View style={SavedOutfitsStyles.container}>
-			{isSavedImagesLoading ? (
-				<Text>No Outfits Saved</Text>
+			{postRefetchTimeout && savedOutfits.length > 0 ? (
+				<Loading
+					text={"Loading Saved Outfits..."}
+					verticalSkew={true}
+				/>
 			) : (
 				<View style={SavedOutfitsStyles.container}>
 					{savedOutfits.length > 0 ? (
@@ -55,7 +59,14 @@ export const SavedOutfits = () => {
 								}></MemoSingleDisplay>
 						</View>
 					) : (
-						<Text>No saved outfits</Text>
+						<View style={SavedOutfitsStyles.noOutfits}>
+							<Text style={SavedOutfitsStyles.text}>
+								No Saved Outfits!
+							</Text>
+							<Text style={SavedOutfitsStyles.subtext}>
+								Save an Outfit from the Feed to see it here!
+							</Text>
+						</View>
 					)}
 					{savedOutfits.length > 1 ? (
 						<View style={SavedOutfitsStyles.displayTwo}>

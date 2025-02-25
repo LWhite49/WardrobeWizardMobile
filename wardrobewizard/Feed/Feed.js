@@ -316,7 +316,10 @@ export const Feed = () => {
 					outfitFeed.currIndex + 2 >= outfitFeed.length) ||
 				cachedImages.length < 3 * (outfitFeed.currIndex + 1) ||
 				outfitFeed.length == 0 ? (
-					<Loading />
+					<Loading
+						text={"Generating Outfits..."}
+						verticalSkew={false}
+					/>
 				) : (
 					<View style={FeedStyles.feedWrapper}>
 						{

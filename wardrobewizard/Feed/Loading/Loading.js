@@ -2,7 +2,7 @@ import { Text, View, Animated } from "react-native";
 import { useRef, useEffect } from "react";
 import { Easing } from "react-native-reanimated";
 import { LoadingStyles } from "./LoadingStyles";
-export const Loading = () => {
+export const Loading = (props) => {
 	// Create rotating animation for loading spinned
 	const LoadingAnimationValue = useRef(new Animated.Value(0)).current;
 
@@ -30,8 +30,13 @@ export const Loading = () => {
 	});
 
 	return (
-		<View style={LoadingStyles.container}>
-			<Text style={LoadingStyles.text}>Generating Outfits...</Text>
+		<View
+			style={
+				props.verticalSkew
+					? LoadingStyles.containerSkew
+					: LoadingStyles.container
+			}>
+			<Text style={LoadingStyles.text}>{props.text}</Text>
 			<Animated.Image
 				source={require("../../assets/loadingSpinner.png")}
 				style={{
