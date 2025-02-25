@@ -7,6 +7,7 @@ import { SavedOutfits } from "./SavedOutfits/SavedOutfits";
 import { MotiView } from "moti";
 import { useIsFocused } from "@react-navigation/native";
 import { useClerk, useUser } from "@clerk/clerk-expo";
+import { LinearGradient } from "expo-linear-gradient";
 
 // Wardrobe Component will display outfits stored in user's Clerk metadata in a horizontal scrollable feed
 // Information about the user's rating vector will also be displayed
@@ -60,7 +61,11 @@ export const Wardrobe = () => {
 	};
 
 	return (
-		<View style={WardrobeStyles.wardobeWrapper}>
+		<LinearGradient
+			style={WardrobeStyles.wardobeWrapper}
+			colors={["#9B79EBFF", "#7342E4FF", "#9B79EBFF"]}
+			start={{ x: 0, y: 0 }}
+			end={{ x: 1, y: 1 }}>
 			<MotiView
 				from={{ translateX: -100 }}
 				animate={animationState}
@@ -90,6 +95,6 @@ export const Wardrobe = () => {
 					)}
 				</>
 			</MotiView>
-		</View>
+		</LinearGradient>
 	);
 };

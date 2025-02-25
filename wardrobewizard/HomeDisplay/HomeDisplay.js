@@ -124,6 +124,7 @@ export const HomeDisplay = () => {
 			screenOptions={{
 				tabBarStyle: {
 					backgroundColor: "#0A1B3BFF",
+					borderColor: "purple",
 				},
 			}}>
 			<Tab.Screen
@@ -138,7 +139,7 @@ export const HomeDisplay = () => {
 									...homeDisplayStyles.tabBarButton,
 									borderRightStyle: "solid",
 									borderRightWidth: 1,
-									borderRightColor: "white",
+									borderRightColor: "#9B79EBFF",
 								}}
 								onPress={() => {
 									setSettingsAnimation("feed");
@@ -179,7 +180,7 @@ export const HomeDisplay = () => {
 									...homeDisplayStyles.tabBarButton,
 									borderRightStyle: "solid",
 									borderRightWidth: 1,
-									borderRightColor: "white",
+									borderRightColor: "#9B79EBFF",
 								}}
 								onPress={() => {
 									setCurrentPage("Settings");

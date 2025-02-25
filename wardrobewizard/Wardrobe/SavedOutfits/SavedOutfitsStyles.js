@@ -9,6 +9,7 @@ export const SavedOutfitsStyles = StyleSheet.create({
 		flexDirection: "column",
 		justifyContent: "center",
 		alignItems: "center",
+		backgroundColor: "#1E1E6000",
 	},
 	noOutfits: {
 		display: "flex",
@@ -52,12 +53,12 @@ export const SavedOutfitsStyles = StyleSheet.create({
 	},
 	displayOne: {
 		position: "absolute",
-		top: 20,
+		top: 50,
 		left: 50,
 	},
 	displayTwo: {
 		position: "absolute",
-		top: 20,
+		top: 50,
 		right: 50,
 	},
 	displayThree: {
