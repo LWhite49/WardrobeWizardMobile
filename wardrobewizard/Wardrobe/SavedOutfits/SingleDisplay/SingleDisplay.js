@@ -15,9 +15,9 @@ export const SingleDisplay = (props) => {
 	return (
 		<LinearGradient
 			colors={[
-				"#" + props.top.productColors[0][0],
-				"#" + props.bottom.productColors[0][0],
-				"#" + props.shoes.productColors[0][0],
+				"#" + props.top.productColors[1][0],
+				"#" + props.bottom.productColors[1][0],
+				"#" + props.shoes.productColors[1][0],
 			]}
 			style={SingleDisplayStyles.gradient}>
 			<View

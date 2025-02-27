@@ -5,7 +5,7 @@ export const SingleDisplayStyles = StyleSheet.create({
 		display: "flex",
 		flexDirection: "column",
 		gap: 6,
-		padding: 14,
+		padding: 10,
 		borderRadius: 10,
 	},
 	image: {
@@ -15,12 +15,13 @@ export const SingleDisplayStyles = StyleSheet.create({
 		borderWidth: 1,
 		borderColor: "#300D82FF",
 		borderStyle: "solid",
+		opacity: 1,
 	},
 	gradient: {
 		height: "100%",
 		width: "100%",
 		borderRadius: 20,
-		borderWidth: 2,
+		borderWidth: 1,
 		borderColor: "#300D82FF",
 		borderStyle: "solid",
 	},

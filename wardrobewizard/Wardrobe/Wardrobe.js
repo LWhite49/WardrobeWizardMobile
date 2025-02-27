@@ -1,7 +1,7 @@
 import { useState, useEffect, memo, useContext } from "react";
 import { AppContext } from "../utils/AppContext";
 import { WardrobeStyles } from "./WardrobeStyles";
-import { Text, View } from "react-native";
+import { Text, View, TouchableOpacity } from "react-native";
 import { AccountSettings } from "./AccountSettings/AccountSettings";
 import { SavedOutfits } from "./SavedOutfits/SavedOutfits";
 import { MotiView } from "moti";
@@ -71,19 +71,20 @@ export const Wardrobe = () => {
 				animate={animationState}
 				exit={{ translateX: 100 }}
 				style={WardrobeStyles.container}>
-				<Text style={WardrobeStyles.text}>
-					Wardrobe -{" "}
+				<Text style={WardrobeStyles.textHeader}>
 					{wardrobeState == -1 ? "Saved Outfits" : "Account Settings"}
 				</Text>
-				<Text
-					style={WardrobeStyles.text}
+				<TouchableOpacity
+					style={WardrobeStyles.switchWardrobePage}
 					onPress={() => {
 						setWardrobeState((prev) => prev * -1);
 					}}>
-					{wardrobeState == -1
-						? "See Account Settings"
-						: "See Saved Outfits"}
-				</Text>
+					<Text style={WardrobeStyles.switchText}>
+						{wardrobeState == -1
+							? "View Account Settings"
+							: "View Saved Outfits"}
+					</Text>
+				</TouchableOpacity>
 				<>
 					{wardrobeState == -1 ? (
 						<MemoSavedOutfits />

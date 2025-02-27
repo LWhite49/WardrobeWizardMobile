@@ -53,22 +53,22 @@ export const SavedOutfitsStyles = StyleSheet.create({
 	},
 	displayOne: {
 		position: "absolute",
-		top: 50,
-		left: 50,
+		top: 10,
+		left: 60,
 	},
 	displayTwo: {
 		position: "absolute",
-		top: 50,
-		right: 50,
+		top: 10,
+		right: 60,
 	},
 	displayThree: {
 		position: "absolute",
-		bottom: 60,
-		left: 50,
+		bottom: 108,
+		left: 60,
 	},
 	displayFour: {
 		position: "absolute",
-		bottom: 60,
-		right: 50,
+		bottom: 108,
+		right: 60,
 	},
 });
