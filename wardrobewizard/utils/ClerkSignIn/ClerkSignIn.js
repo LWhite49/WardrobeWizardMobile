@@ -1,6 +1,6 @@
-import { useSignIn } from "@clerk/clerk-expo";
-import { Link, useRouter } from "expo-router";
-import { Text, TextInput, Button, View } from "react-native";
+import { Clerk, useSignIn } from "@clerk/clerk-expo";
+import { useRouter } from "expo-router";
+import { Text, TextInput, View, TouchableOpacity } from "react-native";
 import React, { useState, useCallback } from "react";
 import { ClerkSignInStyles } from "./ClerkSignInStyles";
 
@@ -13,6 +13,9 @@ export const ClerkSignIn = (prop) => {
 	const [password, setPassword] = useState("");
 
 	const [errorMsg, setErrorMsg] = useState("");
+
+	const [isEmailFocused, setIsEmailFocused] = useState(false);
+	const [isPasswordFocused, setIsPasswordFocused] = useState(false);
 
 	// Define dictionary mapping error codes to error messages
 	const errorMessages = {
@@ -52,34 +55,66 @@ export const ClerkSignIn = (prop) => {
 
 	return (
 		<View style={ClerkSignInStyles.container}>
-			<Text
+			<TouchableOpacity
+				style={ClerkSignInStyles.backButton}
+				activeOpacity={0.8}
 				onPress={() => {
 					setLogInProcess(0);
 				}}>
-				Back
-			</Text>
-			<Text>Sign up</Text>
+				<Text style={ClerkSignInStyles.back}>{"<-"} Back</Text>
+			</TouchableOpacity>
+			<Text style={ClerkSignInStyles.header}>Log In</Text>
 			<TextInput
+				style={
+					isEmailFocused
+						? {
+								...ClerkSignInStyles.textField,
+								borderColor: "#7E00E4FF",
+						  }
+						: ClerkSignInStyles.textField
+				}
+				onFocus={() => setIsEmailFocused(true)}
+				onBlur={() => setIsEmailFocused(false)}
 				autoCapitalize="none"
 				value={emailAddress}
-				placeholder="Enter email"
+				placeholderTextColor={"#000000FF"}
+				placeholder="Enter Email..."
 				onChangeText={(emailAddress) => setEmailAddress(emailAddress)}
 			/>
 			<TextInput
+				style={
+					isPasswordFocused
+						? {
+								...ClerkSignInStyles.textField,
+								borderColor: "#7E00E4FF",
+						  }
+						: ClerkSignInStyles.textField
+				}
 				value={password}
-				placeholder="Enter password"
+				onFocus={() => setIsPasswordFocused(true)}
+				onBlur={() => setIsPasswordFocused(false)}
+				placeholderTextColor={"#000000FF"}
+				placeholder="Enter Password..."
 				secureTextEntry={true}
 				onChangeText={(password) => setPassword(password)}
 			/>
-			<Text>{errorMsg}</Text>
-			<Button title="Sign in" onPress={onSignInPress} />
-			<View>
-				<Text>Don't have an account?</Text>
+			<Text style={ClerkSignInStyles.error}>{errorMsg}</Text>
+			<TouchableOpacity
+				activeOpacity={0.8}
+				onPress={onSignInPress}
+				style={ClerkSignInStyles.signInButton}>
+				<Text style={ClerkSignInStyles.signInText}> Sign In</Text>
+			</TouchableOpacity>
+			<View style={ClerkSignInStyles.signUp}>
+				<Text style={ClerkSignInStyles.signUpPrompt}>
+					Don't have an account?
+				</Text>
 				<Text
+					style={ClerkSignInStyles.signUpText}
 					onPress={() => {
 						setLogInProcess(1);
 					}}>
-					Sign up
+					Sign up!
 				</Text>
 			</View>
 		</View>
