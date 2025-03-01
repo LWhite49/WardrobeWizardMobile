@@ -78,7 +78,8 @@ export const Wardrobe = () => {
 					style={WardrobeStyles.switchWardrobePage}
 					onPress={() => {
 						setWardrobeState((prev) => prev * -1);
-					}}>
+					}}
+					activeOpacity={0.8}>
 					<Text style={WardrobeStyles.switchText}>
 						{wardrobeState == -1
 							? "View Account Settings"

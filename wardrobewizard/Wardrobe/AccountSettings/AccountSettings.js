@@ -1,4 +1,4 @@
-import { Text, View } from "react-native";
+import { Text, View, TouchableOpacity, Image } from "react-native";
 import { AccountSettingsStyles } from "./AccountSettingsStyles";
 import { useContext } from "react";
 import { AppContext } from "../../utils/AppContext";
@@ -11,18 +11,26 @@ export const AccountSettings = (props) => {
 	const userId = props.userId;
 	return (
 		<View style={AccountSettingsStyles.container}>
-			<Text style={AccountSettingsStyles.text}>Account Settings</Text>
-			<Text style={AccountSettingsStyles.text} onPress={handleSignOut}>
-				Sign Out
-			</Text>
-			<Text
-				style={AccountSettingsStyles.text}
+			<Image
+				style={AccountSettingsStyles.image}
+				source={require("../../assets/WardrobeWizSettings.png")}
+				priority="high"
+				loadingP></Image>
+			<TouchableOpacity
+				onPress={handleSignOut}
+				style={AccountSettingsStyles.button}
+				activeOpacity={0.8}>
+				<Text style={AccountSettingsStyles.text}>Sign Out</Text>
+			</TouchableOpacity>
+			<TouchableOpacity
+				style={AccountSettingsStyles.button}
 				onPress={() => {
 					deleteUserMutation.mutate(userId);
 					handleSignOut();
-				}}>
-				Delete Account
-			</Text>
+				}}
+				activeOpacity={0.8}>
+				<Text style={AccountSettingsStyles.text}>Delete Account</Text>
+			</TouchableOpacity>
 		</View>
 	);
 };
