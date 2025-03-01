@@ -2,10 +2,13 @@ import { StyleSheet } from "react-native";
 
 export const ClerkSignUpStyles = StyleSheet.create({
 	container: {
-		flex: 1,
-		backgroundColor: "white",
+		display: "flex",
+		flexDirection: "column",
+		height: "100%",
+		backgroundColor: "#9B79EBFF",
 		alignItems: "center",
 		justifyContent: "center",
+		gap: 10,
 	},
 	text: {
 		fontSize: 24,

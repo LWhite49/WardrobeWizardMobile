@@ -51,13 +51,14 @@ export const ClerkSignIn = (prop) => {
 	}, [isLoaded, emailAddress, password]);
 
 	return (
-		<View>
+		<View style={ClerkSignInStyles.container}>
 			<Text
 				onPress={() => {
 					setLogInProcess(0);
 				}}>
 				Back
 			</Text>
+			<Text>Sign up</Text>
 			<TextInput
 				autoCapitalize="none"
 				value={emailAddress}

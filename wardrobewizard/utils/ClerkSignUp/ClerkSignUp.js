@@ -117,39 +117,38 @@ export const ClerkSignUp = (prop) => {
 	}
 
 	return (
-		<View>
+		<View style={ClerkSignUpStyles.container}>
 			<Text
 				onPress={() => {
 					setLogInProcess(0);
 				}}>
 				Back
 			</Text>
-			<>
-				<Text>Sign up</Text>
-				<TextInput
-					autoCapitalize="none"
-					value={emailAddress}
-					placeholder="Enter email"
-					onChangeText={(email) => setEmailAddress(email)}
-				/>
-				<TextInput
-					value={password}
-					placeholder="Enter password"
-					secureTextEntry={true}
-					onChangeText={(password) => setPassword(password)}
-				/>
-				<Text>{errorMsg}</Text>
-				<Button title="Continue" onPress={onSignUpPress} />
-				<View>
-					<Text>Already have an account?</Text>
-					<Text
-						onPress={() => {
-							setLogInProcess(2);
-						}}>
-						Sign in
-					</Text>
-				</View>
-			</>
+
+			<Text>Sign up</Text>
+			<TextInput
+				autoCapitalize="none"
+				value={emailAddress}
+				placeholder="Enter email"
+				onChangeText={(email) => setEmailAddress(email)}
+			/>
+			<TextInput
+				value={password}
+				placeholder="Enter password"
+				secureTextEntry={true}
+				onChangeText={(password) => setPassword(password)}
+			/>
+			<Text>{errorMsg}</Text>
+			<Button title="Continue" onPress={onSignUpPress} />
+			<View>
+				<Text>Already have an account?</Text>
+				<Text
+					onPress={() => {
+						setLogInProcess(2);
+					}}>
+					Sign in
+				</Text>
+			</View>
 		</View>
 	);
 };

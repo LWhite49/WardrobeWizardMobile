@@ -1,5 +1,5 @@
 import { LogInStyles } from "./LogInStyles";
-import { View, Text, Button } from "react-native";
+import { View, Text, Image, TouchableOpacity, Touchable } from "react-native";
 import { ClerkSignUp } from "../utils/ClerkSignUp/ClerkSignUp";
 import { ClerkSignIn } from "../utils/ClerkSignIn/ClerkSignIn";
 import { SignedIn, SignedOut } from "@clerk/clerk-expo";
@@ -17,20 +17,27 @@ export const LogIn = () => {
 			<SignedOut>
 				{logInProcess == 0 ? (
 					<>
-						<Text
-							style={LogInStyles.text}
+						<Text style={LogInStyles.header}>Wardrobe Wizard</Text>
+						<Image
+							source={require("../assets/WardrobeWiz.png")}
+							style={LogInStyles.image}
+							priority="high"></Image>
+						<TouchableOpacity
 							onPress={() => {
 								setLogInProcess(2);
-							}}>
-							Sign In
-						</Text>
-						<Text
-							style={LogInStyles.text}
+							}}
+							activeOpacity={0.8}
+							style={LogInStyles.button}>
+							<Text style={LogInStyles.text}>Sign In</Text>
+						</TouchableOpacity>
+						<TouchableOpacity
 							onPress={() => {
 								setLogInProcess(1);
-							}}>
-							Sign Up
-						</Text>
+							}}
+							activeOpacity={0.8}
+							style={LogInStyles.button}>
+							<Text style={LogInStyles.text}>Sign Up</Text>
+						</TouchableOpacity>
 					</>
 				) : logInProcess == 1 ? (
 					<ClerkSignUp setLogInProcess={setLogInProcess} />
