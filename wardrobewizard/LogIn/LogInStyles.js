@@ -64,6 +64,6 @@ export const LogInStyles = StyleSheet.create({
 		borderWidth: 2,
 		borderColor: "#000000FF",
 		position: "absolute",
-		bottom: 80,
+		bottom: 120,
 	},
 });

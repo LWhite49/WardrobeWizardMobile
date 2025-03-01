@@ -33,7 +33,7 @@ export const LogIn = () => {
 								setLogInProcess(2);
 							}}
 							activeOpacity={0.8}
-							style={{ ...LogInStyles.button, bottom: 158 }}>
+							style={{ ...LogInStyles.button, bottom: 198 }}>
 							<Text style={LogInStyles.text}>Log In</Text>
 						</TouchableOpacity>
 						<TouchableOpacity
