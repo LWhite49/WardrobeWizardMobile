@@ -18,6 +18,7 @@ export const ClerkSignUp = (prop) => {
 
 	const [isEmailFocused, setIsEmailFocused] = useState(false);
 	const [isPasswordFocused, setIsPasswordFocused] = useState(false);
+	const [isVerifyFocused, setIsVerifyFocused] = useState(false);
 
 	// Source from context
 	const {
@@ -105,17 +106,62 @@ export const ClerkSignUp = (prop) => {
 
 	if (pendingVerification) {
 		return (
-			<>
-				<Text>Verify your email</Text>
-				<Text>Code sent to {emailAddress}</Text>
+			<View style={ClerkSignUpStyles.container}>
+				<TouchableOpacity
+					style={ClerkSignUpStyles.backButton}
+					activeOpacity={0.8}
+					onPress={() => {
+						setPendingVerification(false);
+					}}>
+					<Text style={ClerkSignUpStyles.back}>{"<-"} Back</Text>
+				</TouchableOpacity>
+				<Text style={ClerkSignUpStyles.verifyHeader}>
+					Verify your email
+				</Text>
+				<Text style={ClerkSignUpStyles.verifySubtext}>
+					Code sent to{" "}
+					<Text
+						style={{
+							...ClerkSignUpStyles.verifySubtext,
+							color: "#E174FCFF",
+						}}>
+						{" "}
+						{emailAddress}
+					</Text>
+				</Text>
 				<TextInput
+					style={
+						isVerifyFocused
+							? {
+									...ClerkSignUpStyles.textField,
+									borderColor: "#7E00E4FF",
+									top: -30,
+							  }
+							: { ...ClerkSignUpStyles.textField, top: -30 }
+					}
 					value={code}
-					placeholder="Enter your verification code"
+					onFocus={() => setIsVerifyFocused(true)}
+					onBlur={() => setIsVerifyFocused(false)}
+					textAlign="center"
+					placeholder="Enter verification code..."
 					onChangeText={onCodeChange}
 				/>
-				<Text>{errorMsg}</Text>
-				<Button title="Verify" onPress={onVerifyPress} />
-			</>
+				<Text style={{ ...ClerkSignUpStyles.error, top: -30 }}>
+					{errorMsg}
+				</Text>
+				<TouchableOpacity
+					onPress={onVerifyPress}
+					style={{
+						...ClerkSignUpStyles.signUpButton,
+						width: 200,
+						top: -30,
+					}}>
+					<Text style={ClerkSignUpStyles.signUpText}>
+						{" "}
+						Verify Email
+					</Text>
+				</TouchableOpacity>
+			</View>
 		);
 	}
 

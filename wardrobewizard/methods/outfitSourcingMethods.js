@@ -2,7 +2,7 @@ import axios from "axios";
 import { cacheImages } from "../utils/CacheImages";
 
 // Define path for API calls
-const API_URL = "http://10.226.3.224:10000";
+const API_URL = "http://10.226.50.30:10000";
 
 // Define function for making API call to source outfits
 export const fetchOutfits = async (

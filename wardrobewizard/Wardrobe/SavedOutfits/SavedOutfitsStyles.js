@@ -21,7 +21,7 @@ export const SavedOutfitsStyles = StyleSheet.create({
 		transform: [{ translateY: -60 }],
 		borderRadius: 20,
 		borderWidth: 2,
-		borderColor: "#7D55D9FF",
+		borderColor: "#000000FF",
 		borderStyle: "solid",
 	},
 	text: {
